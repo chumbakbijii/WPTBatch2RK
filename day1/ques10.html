@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ques10</title>
+</head>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0;">
+<form style="align: center;" >
+    <table border="1">
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <h2>Pizza Shop 2.0</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name" required></td>
+        </tr>
+        <tr>
+            <td>Pizza Topping:</td>
+            <td>
+                <input type="radio" name="topping" value="Supreme"> Supreme<br>
+                <input type="radio" name="topping" value="Vegetarian"> Vegetarian<br>
+                <input type="radio" name="topping" value="Hawaiian"> Hawaiian<br>
+            </td>
+        </tr>
+        <tr>
+            <td>Pizza Sauce:</td>
+            <td>
+                <select name="sauce">
+                    <option value="Tomato">Tomato</option>
+                    <option value="BBQ">BBQ</option>
+                    <option value="Alfredo">Alfredo</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Optional Extras:</td>
+            <td>
+                <input type="checkbox" name="extras" value="Extra Cheese"> Extra Cheese<br>
+                <input type="checkbox" name="extras" value="Gluten Free Base"> Gluten Free Base<br>
+            </td>
+        </tr>
+        <tr>
+            <td>Delivery Instructions:</td>
+            <td><textarea name="instructions" rows="4"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <input type="submit" value="Send my Order">
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ques11</title>
+</head>
+<body>
+<h1 align="center">Registration Form</h1>
+<fieldset style="width: 50%; margin: auto;">
+    <form >
+        <table border="1" >
+            <tr>
+                <th colspan="2">Form</th>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" name="lastName" value="Nakov"></td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" name="firstName" value="Svetlin"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text" name="address" value="17 Hristo Botev Str., floor 3, apt. 12"></td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td><input type="text" name="city" value="Kaspichan"></td>
+            </tr>
+            <tr>
+                <td>Zip/Postal Code</td>
+                <td><input type="text" name="zip" value="9325"></td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td>
+                    <select name="country">
+                        <option value="Bulgaria">Bulgaria</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Phone (country code, area code, number)</td>
+                <td>
+                    <input type="text" name="phone" value="(+359) 88 - 83334343">
+                </td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td><input type="email" name="email" value="nakov@kaspichan.org"></td>
+            </tr>
+            <tr>
+                <td>Birth date</td>
+                <td>
+                    <input type="number" name="birthMonth" placeholder="Month (MM)" min="1" max="12" value="06">
+                    <input type="number" name="birthDay" placeholder="Day (DD)" min="1" max="31" value="14">
+                    <input type="number" name="birthYear" placeholder="Year (YYYY)" value="1980">
+                </td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <select name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Starting date</td>
+                <td>
+                    <input type="radio" name="startingDate" value="Spring 2006"> Spring 2006
+                    <br><input type="radio" name="startingDate" value="Summer 2006"> Summer 2006
+                </td>
+            </tr>
+            <tr>
+                <td>Comments/Questions</td>
+                <td><textarea name="comments" rows="4">Please send me information about the lodging.</textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Clear This Form">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</fieldset>
+</body>
+</html>

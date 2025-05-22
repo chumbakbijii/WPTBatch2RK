@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ques14</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f0fa;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+            width: 400px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #000;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Registration Details</h2>
+    <form>
+        <div class="form-group">
+            <label for="university">University:</label>
+            <input type="text" id="university" name="university">
+        </div>
+
+        <div class="form-group">
+            <label for="institute">Institute:</label>
+            <input type="text" id="institute" name="institute">
+        </div>
+
+        <div class="form-group">
+            <label for="branch">Branch:</label>
+            <select id="branch" name="branch">
+                <option value="">--select--</option>
+                <option value="computer_science">Computer Science</option>
+                <option value="electrical">Electrical</option>
+                <option value="mechanical">Mechanical</option>
+                <!-- Add more branches as needed -->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="degree">Degree:</label>
+            <div class="checkbox-group">
+                <select id="degree" name="degree">
+                    <option value="">--select--</option>
+                    <option value="btech">B.Tech</option>
+                    <option value="mtech">M.Tech</option>
+                    <option value="phd">PhD</option>
+                    <!-- Add more degrees as needed -->
+                </select>
+                <label><input type="radio" name="degree_status" value="pursuing"> Pursuing</label>
+                <label><input type="radio" name="degree_status" value="completed"> Completed</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cpi">Average CPI:</label>
+            <input type="text" id="cpi" name="cpi" placeholder="Up to 7th Semester">
+        </div>
+
+        <div class="form-group">
+            <label for="experience">Experience:</label>
+            <input type="text" id="experience" name="experience" placeholder="Years">
+        </div>
+
+        <div class="form-group">
+            <label for="website">Your Website Or Blog:</label>
+            <input type="text" id="website" name="website" placeholder="http://">
+        </div>
+    </form>
+</div>
+</body>
+</html>

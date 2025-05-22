@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section G - Advanced Applications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .output-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            min-height: 50px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .input-container {
+            margin: 10px 0;
+        }
+        input, textarea {
+            padding: 8px;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        /* Keep existing styles */
+        .form-container {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+        }
+        .form-group input {
+            width: 200px;
+            padding: 5px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Section G - Advanced Applications</h1>
+
+<h2>1. Remove duplicate words from a string</h2>
+<div class="input-container">
+    <textarea id="duplicateInput" rows="4" placeholder="Enter text with duplicate words"></textarea>
+    <button onclick="removeDuplicateWords()">Remove Duplicates</button>
+</div>
+<div id="duplicateResult" class="output-box"></div>
+
+<h2>2. Sum of comma-separated numbers</h2>
+<div class="input-container">
+    <input type="text" id="numberSequence" placeholder="Enter 5 comma-separated numbers (e.g., 1,2,3,4,5)">
+    <button onclick="sumNumbers()">Calculate Sum</button>
+</div>
+<div id="sumResult" class="output-box"></div>
+
+<h2>3. Employee Details Table</h2>
+<div class="form-container">
+    <div class="form-group">
+        <label for="empId">ID:</label>
+        <input type="text" id="empId" placeholder="Enter employee ID">
+    </div>
+    <div class="form-group">
+        <label for="empName">Name:</label>
+        <input type="text" id="empName" placeholder="Enter employee name">
+    </div>
+    <div class="form-group">
+        <label for="empPhone">Phone:</label>
+        <input type="text" id="empPhone" placeholder="Enter phone number">
+    </div>
+    <div class="form-group">
+        <label for="empSalary">Salary:</label>
+        <input type="number" id="empSalary" placeholder="Enter salary">
+    </div>
+    <button onclick="addEmployee()">Add Employee</button>
+    <button onclick="clearEmployeeTable()">Clear Table</button>
+    <div id="empError" class="error"></div>
+</div>
+<div id="employeeTableContainer" class="output-box">
+    <table id="employeeTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Salary</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="employeeTableBody"></tbody>
+    </table>
+</div>
+
+<h2>4. Movie Details Table</h2>
+<div class="form-container">
+    <div class="form-group">
+        <label for="movieName">Name:</label>
+        <input type="text" id="movieName" placeholder="Enter movie name">
+    </div>
+    <div class="form-group">
+        <label for="moviePrice">Price:</label>
+        <input type="number" id="moviePrice" placeholder="Enter price">
+    </div>
+    <div class="form-group">
+        <label for="movieSeat">Seat:</label>
+        <input type="text" id="movieSeat" placeholder="Enter seat number">
+    </div>
+    <button onclick="addMovie()">Add Movie</button>
+    <button onclick="clearMovieTable()">Clear Table</button>
+    <div id="movieError" class="error"></div>
+</div>
+<div id="movieTableContainer" class="output-box">
+    <table id="movieTable">
+        <thead>
+            <tr>
+                <th>Movie Name</th>
+                <th>Price</th>
+                <th>Seat</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="movieTableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    // 1. Remove duplicate words from a string
+    function removeDuplicateWords() {
+        const inputText = document.getElementById("duplicateInput").value.trim();
+        const result = document.getElementById("duplicateResult");
+
+        if (inputText === "") {
+            result.textContent = "Please enter some text.";
+            return;
+        }
+
+        // Split the input text into words
+        const words = inputText.split(/\s+/);
+
+        // Create a Set to remove duplicates (keeping order)
+        const uniqueWords = [...new Set(words)];
+
+        // Join the unique words back into a string
+        const uniqueText = uniqueWords.join(" ");
+
+        // Display the results
+        result.innerHTML =
+            `<strong>Original Text:</strong> "${inputText}"<br>
+            <strong>Without Duplicates:</strong> "${uniqueText}"<br><br>
+            <strong>Word Count:</strong><br>
+            Original: ${words.length} words<br>
+            After removing duplicates: ${uniqueWords.length} words`;
+    }
+
+    // 2. Sum of comma-separated numbers
+    function sumNumbers() {
+        const input = document.getElementById("numberSequence").value.trim();
+        const result = document.getElementById("sumResult");
+
+        if (input === "") {
+            result.textContent = "Please enter comma-separated numbers.";
+            return;
+        }
+
+        // Split the input by commas
+        const numbers = input.split(",");
+
+        // Validate that we have 5 numbers
+        if (numbers.length !== 5) {
+            result.textContent = "Please enter exactly 5 numbers separated by commas.";
+            return;
+        }
+
+        // Convert to numbers and calculate sum
+        let sum = 0;
+        const numberValues = [];
+
+        for (let i = 0; i < numbers.length; i++) {
+            const num = parseFloat(numbers[i].trim());
+
+            if (isNaN(num)) {
+                result.textContent = `"${numbers[i]}" is not a valid number. Please enter valid numbers.`;
+                return;
+            }
+
+            numberValues.push(num);
+            sum += num;
+        }
+
+        // Display the results
+        result.innerHTML =
+            `<strong>Numbers:</strong> ${numberValues.join(", ")}<br>
+            <strong>Sum:</strong> ${numberValues.join(" + ")} = ${sum.toFixed(2)}`;
+    }
+
+    // 3. Employee Details Table
+    // Function to add employee
+    function addEmployee() {
+        const id = document.getElementById('empId').value.trim();
+        const name = document.getElementById('empName').value.trim();
+        const phone = document.getElementById('empPhone').value.trim();
+        const salary = document.getElementById('empSalary').value.trim();
+        const errorDiv = document.getElementById('empError');
+
+        // Validate inputs
+        if (!id || !name || !phone || !salary) {
+            errorDiv.textContent = 'All fields are required!';
+            return;
+        }
+
+        const tableBody = document.getElementById('employeeTableBody');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${id}</td>
+            <td>${name}</td>
+            <td>${phone}</td>
+            <td>${salary}</td>
+            <td><button onclick="this.parentElement.parentElement.remove()">Delete</button></td>
+        `;
+
+        tableBody.appendChild(row);
+        clearEmployeeForm();
+        errorDiv.textContent = '';
+    }
+
+    // 4. Movie Details Table
+    // Function to add movie
+    function addMovie() {
+        const name = document.getElementById('movieName').value.trim();
+        const price = document.getElementById('moviePrice').value.trim();
+        const seat = document.getElementById('movieSeat').value.trim();
+        const errorDiv = document.getElementById('movieError');
+
+        // Validate inputs
+        if (!name || !price || !seat) {
+            errorDiv.textContent = 'All fields are required!';
+            return;
+        }
+
+        const tableBody = document.getElementById('movieTableBody');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>${price}</td>
+            <td>${seat}</td>
+            <td><button onclick="this.parentElement.parentElement.remove()">Delete</button></td>
+        `;
+
+        tableBody.appendChild(row);
+        clearMovieForm();
+        errorDiv.textContent = '';
+    }
+
+    // Clear functions
+    function clearEmployeeForm() {
+        document.getElementById('empId').value = '';
+        document.getElementById('empName').value = '';
+        document.getElementById('empPhone').value = '';
+        document.getElementById('empSalary').value = '';
+    }
+
+    function clearMovieForm() {
+        document.getElementById('movieName').value = '';
+        document.getElementById('moviePrice').value = '';
+        document.getElementById('movieSeat').value = '';
+    }
+
+    function clearEmployeeTable() {
+        document.getElementById('employeeTableBody').innerHTML = '';
+    }
+
+    function clearMovieTable() {
+        document.getElementById('movieTableBody').innerHTML = '';
+    }
+</script>
+</body>
+</html>

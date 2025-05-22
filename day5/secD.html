@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section D - String Manipulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .output-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            min-height: 50px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        /* ... (keep existing styles) ... */
+        .input-container {
+            margin: 15px 0;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        .array-info {
+            font-size: 0.9em;
+            color: #666;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Section D - String Manipulation</h1>
+
+<div class="input-container">
+    <label for="customArray">Enter custom array (comma-separated numbers):</label><br>
+    <input type="text" id="customArray" placeholder="e.g., 1,2,3,4,5,6,7,8,9">
+    <button onclick="useDefaultArray()">Use Default Array</button>
+    <div class="array-info">Default array: "1,2,3,4,5,6,7,8,9"</div>
+</div>
+
+<h2>1. Fetch "1" and "5" from string and perform numerical addition</h2>
+<button onclick="addNumbers()">Calculate Addition</button>
+<div id="additionResult" class="output-box"></div>
+
+<h2>2. Fetch "2" and "8" from string and perform numerical multiplication</h2>
+<button onclick="multiplyNumbers()">Calculate Multiplication</button>
+<div id="multiplicationResult" class="output-box"></div>
+
+<script>
+    // The default string
+    const defaultArray = "1,2,3,4,5,6,7,8,9";
+
+    // Function to get the current working array
+    function getCurrentArray() {
+        const customInput = document.getElementById("customArray").value;
+        return customInput.trim() || defaultArray;
+    }
+
+    // Function to set default array
+    function useDefaultArray() {
+        document.getElementById("customArray").value = defaultArray;
+    }
+
+    // 1. Fetch "1" and "5" from string and perform numerical addition
+    function addNumbers() {
+        const result = document.getElementById("additionResult");
+        const currentArray = getCurrentArray();
+
+        // Split the string by comma
+        const numberArray = currentArray.split(",");
+
+        // Validate array length
+        if (numberArray.length < 5) {
+            result.innerHTML = "Error: Array must have at least 5 numbers";
+            return;
+        }
+
+        // Get the numbers at positions 0 (for "1") and 4 (for "5")
+        const firstNum = parseInt(numberArray[0]);
+        const secondNum = parseInt(numberArray[4]);
+
+        // Validate numbers
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+            result.innerHTML = "Error: Invalid numbers in array";
+            return;
+        }
+
+        // Perform addition
+        const sum = firstNum + secondNum;
+
+        // Display the result with calculation steps
+        result.innerHTML =
+            `<strong>Current Array:</strong> "${currentArray}"<br>
+            <strong>First Number (position 1):</strong> ${firstNum}<br>
+            <strong>Second Number (position 5):</strong> ${secondNum}<br>
+            <strong>Addition:</strong> ${firstNum} + ${secondNum} = ${sum}`;
+    }
+
+    // 2. Fetch "2" and "8" from string and perform numerical multiplication
+    function multiplyNumbers() {
+        const result = document.getElementById("multiplicationResult");
+        const currentArray = getCurrentArray();
+
+        // Split the string by comma
+        const numberArray = currentArray.split(",");
+
+        // Validate array length
+        if (numberArray.length < 8) {
+            result.innerHTML = "Error: Array must have at least 8 numbers";
+            return;
+        }
+
+        // Get the numbers at positions 1 (for "2") and 7 (for "8")
+        const firstNum = parseInt(numberArray[1]);
+        const secondNum = parseInt(numberArray[7]);
+
+        // Validate numbers
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+            result.innerHTML = "Error: Invalid numbers in array";
+            return;
+        }
+
+        // Perform multiplication
+        const product = firstNum * secondNum;
+
+        // Display the result with calculation steps
+        result.innerHTML =
+            `<strong>Current Array:</strong> "${currentArray}"<br>
+            <strong>First Number (position 2):</strong> ${firstNum}<br>
+            <strong>Second Number (position 8):</strong> ${secondNum}<br>
+            <strong>Multiplication:</strong> ${firstNum} × ${secondNum} = ${product}`;
+    }
+</script>
+</body>
+</html>

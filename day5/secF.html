@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section F - More String Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .output-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            min-height: 50px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        /* Existing styles remain the same */
+        .input-container {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        .input-container input {
+            padding: 8px;
+            width: 300px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .array-info {
+            font-size: 0.9em;
+            color: #666;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Section F - More String Operations</h1>
+
+<div class="input-container">
+    <label for="customArray">Enter your array (comma-separated numbers):</label><br>
+    <input type="text" id="customArray" placeholder="e.g., 1,2,3,4,5,6,7,8,9">
+    <button onclick="useDefaultArray()">Use Default Array</button>
+    <div class="array-info">Default array: "1,2,3,4,5,6,7,8,9"</div>
+</div>
+
+<h2>1. Print only numbers not comma</h2>
+<button onclick="printOnlyNumbers()">Print Numbers Only</button>
+<div id="numbersOnlyResult" class="output-box"></div>
+
+<h2>2. Print all even numbers</h2>
+<button onclick="printEvenNumbers()">Print Even Numbers</button>
+<div id="evenNumbersResult" class="output-box"></div>
+
+<script>
+    const defaultArray = "1,2,3,4,5,6,7,8,9";
+
+    function getCurrentArray() {
+        const customInput = document.getElementById("customArray").value;
+        return customInput.trim() || defaultArray;
+    }
+
+    function useDefaultArray() {
+        document.getElementById("customArray").value = defaultArray;
+    }
+
+    function printOnlyNumbers() {
+        const result = document.getElementById("numbersOnlyResult");
+        const currentArray = getCurrentArray();
+
+        // Validate input
+        if (!/^[\d,]+$/.test(currentArray)) {
+            result.innerHTML = "Error: Please enter only numbers and commas";
+            return;
+        }
+
+        const withoutCommas1 = currentArray.replace(/,/g, "");
+        const withoutCommas2 = currentArray.split(",").join("");
+
+        result.innerHTML =
+            `<strong>Current Array:</strong> "${currentArray}"<br>
+            <strong>Numbers Only (using replace):</strong> "${withoutCommas1}"<br>
+            <strong>Numbers Only (using split/join):</strong> "${withoutCommas2}"<br><br>
+            <strong>Explanation:</strong><br>
+            Method 1: Used regular expression to replace all commas with empty string<br>
+            Method 2: Split the string at commas into an array, then joined it back without separators`;
+    }
+
+    function printEvenNumbers() {
+        const result = document.getElementById("evenNumbersResult");
+        const currentArray = getCurrentArray();
+
+        // Validate input
+        if (!/^[\d,]+$/.test(currentArray)) {
+            result.innerHTML = "Error: Please enter only numbers and commas";
+            return;
+        }
+
+        const numberArray = currentArray.split(",");
+
+        // Validate numbers
+        if (!numberArray.every(num => !isNaN(num) && num.trim() !== '')) {
+            result.innerHTML = "Error: Invalid number format";
+            return;
+        }
+
+        const evenNumbers = numberArray.filter(num => parseInt(num) % 2 === 0);
+
+        result.innerHTML =
+            `<strong>Current Array:</strong> "${currentArray}"<br>
+            <strong>Even Numbers:</strong> ${evenNumbers.join(", ")}<br><br>
+            <strong>Explanation:</strong><br>
+            1. Split the string into an array: [${numberArray.join(", ")}]<br>
+            2. Filter numbers that are divisible by 2 (even)<br>
+            3. Result: [${evenNumbers.join(", ")}]`;
+    }
+</script>
+</body>
+</html>

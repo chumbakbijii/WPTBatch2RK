@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ques13</title>
+    <style>
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .center {
+            text-align: center;
+            margin: 20px 0;
+        }
+        fieldset {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<fieldset>
+<h1>Internet Usage Survey</h1>
+<p>This survey is being conducted to help identify the Internet usage patterns of our customers. Please take a few moments to complete and return this short form. Thank you for your cooperation.</p>
+
+<form>
+    <div>
+        <label for="connection">What type of Internet connection do you have?</label>
+        <select id="connection" name="connection">
+            <option value="Dial-up">Dial-up</option>
+            <option value="DSL">DSL</option>
+            <option value="High Speed Cable">High Speed Cable</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+<br>
+    <div>
+        <label>What type of computer do you use most at home?</label>
+        <input type="radio" id="desktop" name="computerType" value="Desktop"> Desktop
+        <input type="radio" id="laptop" name="computerType" value="Laptop"> Laptop
+    </div>
+<br>
+    <div>
+        <label>How would you describe your main reason for using the Internet?</label><br>
+        <input type="checkbox" id="work" name="mainReason" value="Work-related activities"> To do work-related activities<br>
+        <input type="checkbox" id="school" name="mainReason" value="School-related activities"> To do school-related activities<br>
+        <input type="checkbox" id="entertainment1" name="mainReason" value="Entertainment purposes"> For entertainment purposes<br>
+        <input type="checkbox" id="other" name="mainReason" value="Other activities"> Other activities
+    </div>
+<br>
+    <div class="flex-container">
+        <fieldset>
+            <legend>Types of Sites Visited</legend>
+            <label>What types of web sites do you access most often? Check all that apply:</label><br>
+            <input type="checkbox" id="selfImprovement" name="sitesVisited" value="Self Improvement"> Self Improvement<br>
+            <input type="checkbox" id="entertainment" name="sitesVisited" value="Entertainment"> Entertainment<br>
+            <input type="checkbox" id="newsSports" name="sitesVisited" value="News and Sports"> News and Sports<br>
+            <input type="checkbox" id="reference" name="sitesVisited" value="Reference"> Reference<br>
+            <input type="checkbox" id="email" name="sitesVisited" value="Email"> Email
+        </fieldset>
+
+        <fieldset>
+            <legend>Time Spent Using Internet</legend>
+            <label>During an average week, how long do you spend online?</label><br>
+            <input type="radio" id="0-3hours" name="timeSpent" value="0-3 Hours"> 0-3 Hours<br>
+            <input type="radio" id="4-6hours" name="timeSpent" value="4-6 Hours"> 4-6 Hours<br>
+            <input type="radio" id="7-10hours" name="timeSpent" value="7-10 Hours"> 7-10 Hours<br>
+            <input type="radio" id="11-14hours" name="timeSpent" value="11-14 Hours"> 11-14 Hours<br>
+            <input type="radio" id="15plushours" name="timeSpent" value="15+ Hours"> 15+ Hours
+        </fieldset>
+    </div>
+<br>
+    <div>
+        <label for="comments">Please comment on your opinions concerning Internet privacy and safety:</label>
+        <br><textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+    </div>
+
+    <div class="center">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName">
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName"><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age">
+
+        <label for="zipCode">Zip Code:</label>
+        <input type="text" id="zipCode" name="zipCode">
+    </div>
+
+    <div class="center">
+        <button type="submit">Click to Submit</button>
+        <button type="reset">Clear Form</button>
+    </div>
+</form>
+</fieldset>
+</body>
+</html>

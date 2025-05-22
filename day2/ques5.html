@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a2526;
+            color: #ccc;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 30px;
+        }
+
+  h2 {
+            font-size: clamp(2.5em, 6vw, 3.5em);
+            color: #ccc;
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            color: #ccc;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-bottom-color: #00cc00;
+        }
+
+        input::placeholder {
+            color: #ccc;
+            opacity: 0.7;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Hide the default checkbox */
+        .checkbox-group input[type="checkbox"] {
+            display: none;
+        }
+
+        /* Custom checkbox style */
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label::before {
+            content: '';
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        /* Checked state */
+        .checkbox-group input[type="checkbox"]:checked + label::before {
+            background-color: #00cc00;
+            border-color: #00cc00;
+        }
+
+        /* Optional: Add a checkmark */
+        .checkbox-group input[type="checkbox"]:checked + label::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            left: 6px;
+            font-size: 12px;
+        }
+
+        /* Make the label position relative for the checkmark positioning */
+        .checkbox-group label {
+            position: relative;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00cc00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00b300;
+        }
+
+        .link {
+            text-align: center;
+        }
+
+        a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00cc00;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            input[type="text"],
+            input[type="password"],
+            input[type="email"] {
+                padding: 10px;
+            }
+
+            .checkbox-group {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .checkbox-group label::before {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Register</h2>
+    <form>
+        <div class="form-group">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div class="form-group">
+            <input type="email" id="email" name="email" placeholder="E-Mail Address" required>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">Accept rules and conditions</label>
+        </div>
+
+        <button type="submit">REGISTER</button>
+
+        <div class="link">
+            <div class="link">
+                <a href="#"><span style="font-size: 0.8em;">ALREADY HAVE AN ACCOUNT?</span></a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

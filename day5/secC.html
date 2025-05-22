@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section C - String Operations and Lists</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .output-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            min-height: 50px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .input-container {
+            margin: 10px 0;
+        }
+        input {
+            padding: 8px;
+            width: 300px;
+        }
+        ul {
+            list-style-type: circle;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Section C - String Operations and Lists</h1>
+
+<h2>1. Check if a string ends with "t"</h2>
+<div class="input-container">
+    <input type="text" id="endWithT" placeholder="Enter a string to check">
+    <button onclick="checkEndsWith()">Check</button>
+</div>
+<div id="endWithTResult" class="output-box"></div>
+
+<h2>2. Accept fruit names and show in list</h2>
+<div class="input-container">
+    <input type="text" id="fruitInput" placeholder="Enter fruit name">
+    <button onclick="addFruit()">Add Fruit</button>
+</div>
+<div>
+    <button onclick="clearFruits()">Clear List</button>
+</div>
+<div id="fruitListContainer" class="output-box">
+    <h3>Fruit List:</h3>
+    <ul id="fruitList"></ul>
+</div>
+
+<script>
+    // 1. Check if a string ends with "t"
+    function checkEndsWith() {
+        const inputString = document.getElementById("endWithT").value;
+        const result = document.getElementById("endWithTResult");
+
+        if (inputString === "") {
+            result.textContent = "Please enter a string to check.";
+            return;
+        }
+
+        if (inputString.endsWith("t")) {
+            result.textContent = `"${inputString}" ends with "t".`;
+        } else {
+            result.textContent = `"${inputString}" does not end with "t".`;
+        }
+    }
+
+    // 2. Accept fruit names and show in list
+    // Initialize an array to store fruits
+    let fruits = [];
+
+    function addFruit() {
+        const fruitInput = document.getElementById("fruitInput");
+        const fruitName = fruitInput.value.trim();
+
+        if (fruitName === "") {
+            alert("Please enter a fruit name!");
+            return;
+        }
+
+        // Add fruit to array
+        fruits.push(fruitName);
+
+        // Clear input field
+        fruitInput.value = "";
+
+        // Update the displayed list
+        updateFruitList();
+
+        // Focus back on input for convenience
+        fruitInput.focus();
+    }
+
+    function updateFruitList() {
+        const fruitList = document.getElementById("fruitList");
+
+        // Clear existing list
+        fruitList.innerHTML = "";
+
+        // Add each fruit as a list item
+        fruits.forEach(fruit => {
+            const li = document.createElement("li");
+            li.textContent = fruit;
+            fruitList.appendChild(li);
+        });
+    }
+
+    function clearFruits() {
+        fruits = [];
+        updateFruitList();
+    }
+</script>
+</body>
+</html>

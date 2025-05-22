@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEM Kit</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 70vh; /* Full viewport height */
+        }
+        body {
+            background-color: #00aaff; /* Blue background */
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 80px;
+            margin: 0;
+        }
+        p {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        .button-container {
+            margin-top: 30px;
+        }
+        .button {
+            border: 1px solid #fff; /* White border */
+            padding: 15px 30px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 0px;
+            text-decoration: none;
+            color: #fff; /* White text */
+        }
+        .button:hover {
+            background-color: #e0e0e0; /* Light grey on hover */
+            color: #000; /* Black text on hover */
+        }
+        .button:active {
+            background-color: #ccc; /* Darker grey when clicked */
+            color: #000; /* Black text when clicked */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>BEM KIT</h1>
+    <p>CSS UI Kit using BEM in class naming standard</p>
+    <div class="button-container">
+        <a href="#" class="button">🏠 Homepage</a>
+        <a href="#" class="button">⬇️ Download</a>
+        <a href="#" class="button">🔗 Source Code</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section I - DOM Operations and Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        .calculator {
+            background-color: #34495e;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .calculator input {
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .calculator button {
+            width: 80px;
+            height: 50px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .calculator button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .friends-section {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .friends-section input {
+            width: 250px;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+        .friends-section button {
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .friends-section button:hover {
+            background-color: #229954;
+        }
+        .friends-list {
+            background-color: white;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            min-height: 100px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .friend-item {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .movie-form {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .movie-form input {
+            width: 200px;
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+        .movie-form button {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .movie-form button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Section I - DOM Operations and Calculator</h1>
+
+    <!-- Problem 1: Calculator -->
+    <h2>1. Calculator Program</h2>
+    <div class="calculator">
+        <div>
+            <input type="number" id="num1" placeholder="Enter first number">
+            <input type="number" id="num2" placeholder="Enter second number">
+        </div>
+        <div>
+            <button onclick="calculate('add')">Add</button>
+            <button onclick="calculate('subtract')">Subtract</button>
+            <button onclick="calculate('multiply')">Multiply</button>
+            <button onclick="calculate('divide')">Divide</button>
+            <button onclick="calculate('modulus')">Modulus</button>
+        </div>
+        <div id="calculatorResult" class="result">Result will appear here</div>
+    </div>
+
+    <!-- Problem 2: Friends List -->
+    <h2>2. Friends List using DOM</h2>
+    <div class="friends-section">
+        <div>
+            <input type="text" id="friendName" placeholder="Enter friend's name">
+            <button onclick="addFriend()">Add Friend</button>
+            <button onclick="clearFriends()">Clear All</button>
+        </div>
+        <div class="friends-list" id="friendsList">
+            <p><em>No friends added yet. Start adding some!</em></p>
+        </div>
+    </div>
+
+    <!-- Problem 3: Movies Table (Compulsory) -->
+    <h2>3. Movies Details Table (Compulsory)</h2>
+    <div class="movie-form">
+        <h3>Add Movie Details</h3>
+        <div>
+            <input type="text" id="movieName" placeholder="Movie Name">
+            <input type="number" id="moviePrice" placeholder="Price">
+            <input type="text" id="movieSeat" placeholder="Seat Number">
+            <button onclick="addMovie()">Add Movie</button>
+        </div>
+        <button onclick="addThreeMovies()" style="background-color: #9b59b6;">Add 3 Movies via Prompts</button>
+    </div>
+
+    <table id="moviesTable">
+        <thead>
+        <tr>
+            <th>Movie Name</th>
+            <th>Price</th>
+            <th>Seat</th>
+        </tr>
+        </thead>
+        <tbody id="moviesTableBody">
+        <!-- Movie data will be inserted here -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Problem 1: Calculator Implementation
+    function calculate(operation) {
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+        const resultDiv = document.getElementById('calculatorResult');
+
+        // Validation
+        if (isNaN(num1) || isNaN(num2)) {
+            resultDiv.textContent = "Please enter valid numbers";
+            resultDiv.style.backgroundColor = "#e74c3c";
+            return;
+        }
+
+        let result;
+        let operationSymbol;
+
+        switch(operation) {
+            case 'add':
+                result = num1 + num2;
+                operationSymbol = '+';
+                break;
+            case 'subtract':
+                result = num1 - num2;
+                operationSymbol = '-';
+                break;
+            case 'multiply':
+                result = num1 * num2;
+                operationSymbol = '×';
+                break;
+            case 'divide':
+                if (num2 === 0) {
+                    resultDiv.textContent = "Cannot divide by zero!";
+                    resultDiv.style.backgroundColor = "#e74c3c";
+                    return;
+                }
+                result = num1 / num2;
+                operationSymbol = '÷';
+                break;
+            case 'modulus':
+                if (num2 === 0) {
+                    resultDiv.textContent = "Cannot find modulus with zero!";
+                    resultDiv.style.backgroundColor = "#e74c3c";
+                    return;
+                }
+                result = num1 % num2;
+                operationSymbol = '%';
+                break;
+        }
+
+        resultDiv.textContent = `${num1} ${operationSymbol} ${num2} = ${result}`;
+        resultDiv.style.backgroundColor = "#27ae60";
+    }
+
+    // Problem 2: Friends List Implementation using DOM
+    let friendsArray = [];
+
+    function addFriend() {
+        const friendInput = document.getElementById('friendName');
+        const friendName = friendInput.value.trim();
+        const friendsList = document.getElementById('friendsList');
+
+        if (friendName === '') {
+            alert('Please enter a friend\'s name!');
+            return;
+        }
+
+        // Check for duplicates
+        if (friendsArray.includes(friendName)) {
+            alert('This friend is already in your list!');
+            return;
+        }
+
+        // Add to array
+        friendsArray.push(friendName);
+
+        // Clear input
+        friendInput.value = '';
+
+        // Update DOM
+        updateFriendsList();
+
+        // Focus back on input
+        friendInput.focus();
+    }
+
+    function updateFriendsList() {
+        const friendsList = document.getElementById('friendsList');
+
+        if (friendsArray.length === 0) {
+            friendsList.innerHTML = '<p><em>No friends added yet. Start adding some!</em></p>';
+            return;
+        }
+
+        // Clear existing content
+        friendsList.innerHTML = '';
+
+        // Create title
+        const title = document.createElement('h4');
+        title.textContent = `My Friends (${friendsArray.length}):`;
+        title.style.marginBottom = '15px';
+        friendsList.appendChild(title);
+
+        // Add each friend as a styled element
+        friendsArray.forEach((friend, index) => {
+            const friendElement = document.createElement('span');
+            friendElement.className = 'friend-item';
+            friendElement.textContent = `${index + 1}. ${friend}`;
+            friendsList.appendChild(friendElement);
+        });
+    }
+
+    function clearFriends() {
+        if (friendsArray.length === 0) {
+            alert('Friends list is already empty!');
+            return;
+        }
+
+        if (confirm('Are you sure you want to clear all friends?')) {
+            friendsArray = [];
+            updateFriendsList();
+        }
+    }
+
+    // Allow adding friends with Enter key
+    document.getElementById('friendName').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addFriend();
+        }
+    });
+
+    // Problem 3: Movies Table Implementation (Compulsory)
+    let moviesArray = [];
+
+    function addMovie() {
+        const movieName = document.getElementById('movieName').value.trim();
+        const moviePrice = document.getElementById('moviePrice').value.trim();
+        const movieSeat = document.getElementById('movieSeat').value.trim();
+
+        // Validation
+        if (movieName === '' || moviePrice === '' || movieSeat === '') {
+            alert('Please fill in all movie details!');
+            return;
+        }
+
+        if (isNaN(moviePrice) || parseFloat(moviePrice) < 0) {
+            alert('Please enter a valid price!');
+            return;
+        }
+
+        // Create movie object
+        const movie = {
+            name: movieName,
+            price: parseFloat(moviePrice).toFixed(2),
+            seat: movieSeat
+        };
+
+        // Add to array
+        moviesArray.push(movie);
+
+        // Clear inputs
+        document.getElementById('movieName').value = '';
+        document.getElementById('moviePrice').value = '';
+        document.getElementById('movieSeat').value = '';
+
+        // Update table
+        updateMoviesTable();
+
+        // Focus on first input
+        document.getElementById('movieName').focus();
+    }
+
+    function addThreeMovies() {
+        const movies = [];
+
+        // Collect data for 3 movies
+        for (let i = 1; i <= 3; i++) {
+            const name = prompt(`Enter Movie Name for Movie ${i}:`);
+            if (name === null || name.trim() === '') {
+                alert('Movie addition cancelled or invalid name entered.');
+                return;
+            }
+
+            const price = prompt(`Enter Price for Movie ${i}:`);
+            if (price === null || isNaN(price) || parseFloat(price) < 0) {
+                alert('Movie addition cancelled or invalid price entered.');
+                return;
+            }
+
+            const seat = prompt(`Enter Seat for Movie ${i}:`);
+            if (seat === null || seat.trim() === '') {
+                alert('Movie addition cancelled or invalid seat entered.');
+                return;
+            }
+
+            movies.push({
+                name: name.trim(),
+                price: parseFloat(price).toFixed(2),
+                seat: seat.trim()
+            });
+        }
+
+        // Add all movies to the array
+        moviesArray.push(...movies);
+
+        // Update table
+        updateMoviesTable();
+
+        alert('3 movies added successfully!');
+    }
+
+    function updateMoviesTable() {
+        const tableBody = document.getElementById('moviesTableBody');
+
+        // Clear existing rows
+        tableBody.innerHTML = '';
+
+        // Add each movie as a row
+        moviesArray.forEach((movie, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${movie.name}</td>
+                <td>$${movie.price}</td>
+                <td>${movie.seat}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // If no movies, show a message
+        if (moviesArray.length === 0) {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td colspan="3" style="text-align: center; font-style: italic;">No movies added yet</td>';
+            tableBody.appendChild(row);
+        }
+    }
+
+    // Initialize empty table
+    updateMoviesTable();
+</script>
+</body>
+</html>

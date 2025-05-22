@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section B - Loops and Calculations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .output-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            min-height: 50px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .input-container {
+            margin: 10px 0;
+        }
+        input {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+<h1>Section B - Loops and Calculations</h1>
+
+<h2>1. Print Multiplication Table</h2>
+<div class="input-container">
+    <label for="tableNumber">Enter a number:</label>
+    <input type="number" id="tableNumber" placeholder="Enter number">
+    <button onclick="printTable()">Generate Table</button>
+</div>
+<div id="tableResult" class="output-box"></div>
+
+<h2>2. Find Sum of Digits of a 5-digit Number</h2>
+<div class="input-container">
+    <label for="digitNumber">Enter a 5-digit number:</label>
+    <input type="number" id="digitNumber" placeholder="Enter 5-digit number" min="10000" max="99999">
+    <button onclick="findSumOfDigits()">Calculate Sum of Digits</button>
+</div>
+<div id="digitSumResult" class="output-box"></div>
+
+<h2>3. Display Fibonacci Series</h2>
+<div class="input-container">
+    <label for="fibTerms">Number of Terms:</label>
+    <input type="number" id="fibTerms" placeholder="Enter number of terms" value="10">
+    <button onclick="displayFibonacci()">Generate Fibonacci</button>
+</div>
+<div id="fibonacciResult" class="output-box"></div>
+
+<h2>4. Compound Interest Calculator</h2>
+<div class="input-container">
+    <label for="principal">Principal (P):</label>
+    <input type="number" id="principal" placeholder="Enter principal amount" value="1000">
+</div>
+<div class="input-container">
+    <label for="rate">Rate of Interest (r):</label>
+    <input type="number" id="rate" placeholder="Enter rate %" value="10">
+</div>
+<div class="input-container">
+    <label for="time">Time Period (n):</label>
+    <input type="number" id="time" placeholder="Enter years" value="1">
+</div>
+<button onclick="calculateCompoundInterest()">Calculate Compound Interest</button>
+<div id="compoundInterestResult" class="output-box"></div>
+
+<h2>5. Sum of Squares of Even Numbers up to N</h2>
+<div class="input-container">
+    <label for="evenSumLimit">Enter N:</label>
+    <input type="number" id="evenSumLimit" placeholder="Enter a number" value="10">
+    <button onclick="calculateSumOfSquares()">Calculate Sum</button>
+</div>
+<div id="sumOfSquaresResult" class="output-box"></div>
+
+<h2>6. Print Even Numbers from 1 to 20</h2>
+<button onclick="printEvenNumbers()">Print Even Numbers</button>
+<div id="evenNumbersResult" class="output-box"></div>
+
+<h2>7. Print Custom Table with Range</h2>
+<div class="input-container">
+    <label for="customTableNumber">Number:</label>
+    <input type="number" id="customTableNumber" placeholder="Enter number for table" value="2">
+</div>
+<div class="input-container">
+    <label for="customTableRange">Range Limit:</label>
+    <input type="number" id="customTableRange" placeholder="Enter range limit" value="20">
+</div>
+<button onclick="printCustomTable()">Generate Custom Table</button>
+<div id="customTableResult" class="output-box"></div>
+
+<script>
+    // 1. Print Multiplication Table
+    function printTable() {
+        const num = parseInt(document.getElementById("tableNumber").value);
+        const result = document.getElementById("tableResult");
+
+        if (isNaN(num)) {
+            result.textContent = "Please enter a valid number.";
+            return;
+        }
+
+        let tableText = "";
+        for (let i = 1; i <= 10; i++) {
+            tableText += num + " * " + i + " = " + (num * i) + "<br>";
+        }
+
+        result.innerHTML = tableText;
+    }
+
+    // Updated findSumOfDigits function
+    function findSumOfDigits() {
+        const numInput = document.getElementById("digitNumber");
+        const num = numInput.value;
+        const result = document.getElementById("digitSumResult");
+
+        if (!num || num.length !== 5 || isNaN(num)) {
+            result.textContent = "Please enter a valid 5-digit number.";
+            return;
+        }
+
+        let sum = 0;
+        for (let i = 0; i < num.length; i++) {
+            sum += parseInt(num[i]);
+        }
+
+        result.textContent = "Sum of digits in " + num + " is: " + sum;
+    }
+
+    // 3. Display Fibonacci Series
+    function displayFibonacci() {
+        const terms = parseInt(document.getElementById("fibTerms").value);
+        const result = document.getElementById("fibonacciResult");
+
+        if (isNaN(terms) || terms <= 0) {
+            result.textContent = "Please enter a valid positive number of terms.";
+            return;
+        }
+
+        let a = 0, b = 1;
+        let fibSeries = "";
+
+        if (terms >= 1) fibSeries += a;
+        if (terms >= 2) fibSeries += ", " + b;
+
+        for (let i = 2; i < terms; i++) {
+            const next = a + b;
+            fibSeries += ", " + next;
+            a = b;
+            b = next;
+        }
+
+        result.textContent = "Fibonacci Series (" + terms + " terms): " + fibSeries;
+    }
+
+    // 4. Compound Interest Calculator
+    function calculateCompoundInterest() {
+        const p = parseFloat(document.getElementById("principal").value);
+        const r = parseFloat(document.getElementById("rate").value);
+        const n = parseFloat(document.getElementById("time").value);
+        const result = document.getElementById("compoundInterestResult");
+
+        if (isNaN(p) || isNaN(r) || isNaN(n) || p < 0 || r < 0 || n < 0) {
+            result.textContent = "Please enter valid positive numbers for all fields.";
+            return;
+        }
+
+        // Compound Interest formula: A = P(1 + r/100)^n
+        const amount = p * Math.pow(1 + r/100, n);
+        const interest = amount - p;
+
+        result.innerHTML =
+            "Principal: " + p.toFixed(2) + "<br>" +
+            "Rate of Interest: " + r + "%<br>" +
+            "Time Period: " + n + " years<br>" +
+            "Compound Interest: " + interest.toFixed(2) + "<br>" +
+            "Total Amount: " + amount.toFixed(2);
+    }
+
+    // 5. Sum of Squares of Even Numbers up to N
+    function calculateSumOfSquares() {
+        const n = parseInt(document.getElementById("evenSumLimit").value);
+        const result = document.getElementById("sumOfSquaresResult");
+
+        if (isNaN(n) || n < 1) {
+            result.textContent = "Please enter a valid positive number.";
+            return;
+        }
+
+        let sum = 0;
+        let evenNumbers = [];
+
+        for (let i = 2; i <= n; i += 2) {
+            sum += i * i;
+            evenNumbers.push(i + "² = " + (i * i));
+        }
+
+        result.innerHTML = "Sum of squares of even numbers up to " + n + " is: " + sum + "<br><br>" +
+                           "Calculation: " + evenNumbers.join(" + ") + " = " + sum;
+    }
+
+    // 6. Print Even Numbers from 1 to 20
+    function printEvenNumbers() {
+        const result = document.getElementById("evenNumbersResult");
+        let evenNums = [];
+
+        for (let i = 2; i <= 20; i += 2) {
+            evenNums.push(i);
+        }
+
+        result.textContent = "Even numbers from 1 to 20: " + evenNums.join(", ");
+    }
+
+    // 7. Print Custom Table with Range
+    function printCustomTable() {
+        const num = parseInt(document.getElementById("customTableNumber").value);
+        const range = parseInt(document.getElementById("customTableRange").value);
+        const result = document.getElementById("customTableResult");
+
+        if (isNaN(num) || isNaN(range) || range < 1) {
+            result.textContent = "Please enter valid numbers.";
+            return;
+        }
+
+        let tableText = "";
+        for (let i = 1; i <= range; i++) {
+            tableText += num + " * " + i + " = " + (num * i) + "<br>";
+        }
+
+        result.innerHTML = tableText;
+    }
+</script>
+</body>
+</html>

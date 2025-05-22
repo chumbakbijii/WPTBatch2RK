@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Even or Odd Number</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>Check if a Number is Even or Odd</h1>
+<div class="container">
+    <label for="number">Enter a number:</label>
+    <input type="number" id="number" placeholder="Enter number">
+
+    <button onclick="checkEvenOdd()">Check</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function checkEvenOdd() {
+        // Get input value
+        const number = parseFloat(document.getElementById('number').value);
+
+        // Check if input is a valid number
+        if (isNaN(number)) {
+            document.getElementById('result').textContent = "Please enter a valid number";
+            return;
+        }
+
+        // Check if input is an integer
+        if (!Number.isInteger(number)) {
+            document.getElementById('result').textContent = "Please enter an integer (whole number)";
+            return;
+        }
+
+        // Check if number is even or odd
+        if (number % 2 === 0) {
+            document.getElementById('result').textContent = `${number} is an even number`;
+        } else {
+            document.getElementById('result').textContent = `${number} is an odd number`;
+        }
+    }
+</script>
+</body>
+</html>

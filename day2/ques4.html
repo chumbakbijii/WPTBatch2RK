@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Pricing Table</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #007bff;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            margin-bottom: 15px;
+        }
+
+        .pricing-table {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .pricing-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            padding-top: 40px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pricing-card h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        .price {
+            font-size: 2rem;
+            text-align: center;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .features li {
+            padding: 5px 0;
+        }
+
+        .subscribe-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            margin-top: auto;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .subscribe-btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="font-size: 2.5rem;">Bootstrap Pricing Table</h1>
+            <p>Easily create a responsive pricing table in Bootstrap.
+            <br>
+                Bootstrap snippet by Bootstrapious
+            </p>
+        </div>
+        
+        <div class="pricing-table">
+            <div class="pricing-card">
+                <h3>BASIC</h3>
+                <div class="price">$199 / <span style="font-size: 1rem;">month</span></div>
+                <ul class="features">
+                    <li>✔ Lorem ipsum dolor sit amet</li>
+                    <li>✔ Sed ut perspiciatis</li>
+                    <li>✖ <del>Nam libero tempore</del></li>
+                    <li>✖ <del>At vero eos et accusamus</del></li>
+                    <li>✖ <del>Sed ut perspiciatis</del></li>
+                </ul>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+
+            <div class="pricing-card">
+                <h3>PRO</h3>
+                <div class="price">$399 / <span style="font-size: 1rem;">month</span></div>
+                <ul class="features">
+                    <li>✔ Lorem ipsum dolor sit amet</li>
+                    <li>✔ Sed ut perspiciatis</li>
+                    <li>✖ <del>Nam libero tempore</del></li>
+                    <li>✔ At vero eos et accusamus</li>
+                    <li>✔ Sed ut perspiciatis</li>
+                </ul>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+
+            <div class="pricing-card">
+                <h3>ENTERPRISE</h3>
+                <div class="price">$899 / <span style="font-size: 1rem;">month</span></div>
+                <ul class="features">
+                    <li>✔ Lorem ipsum dolor sit amet</li>
+                    <li>✔ Sed ut perspiciatis</li>
+                    <li>✔ Nam libero tempore</li>
+                    <li>✔ At vero eos et accusamus</li>
+                    <li>✔ Sed ut perspiciatis</li>
+                </ul>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

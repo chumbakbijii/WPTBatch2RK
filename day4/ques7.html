@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Day of Week</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .method-selector {
+            margin-bottom: 20px;
+        }
+        .input-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Print Day of Week</h1>
+<div class="container">
+    <div class="method-selector">
+        <label for="method">Choose a method:</label>
+        <select id="method" onchange="toggleInputMethod()">
+            <option value="number">Enter day number (1-7)</option>
+            <option value="date">Select a date</option>
+        </select>
+    </div>
+
+    <div id="numberInput" class="input-section">
+        <label for="dayNumber">Enter day number (1-7, where 1 is Sunday):</label>
+        <select id="dayNumber">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </div>
+
+    <div id="dateInput" class="input-section" style="display: none;">
+        <label for="selectedDate">Select a date:</label>
+        <input type="date" id="selectedDate">
+    </div>
+
+    <button onclick="printDayOfWeek()">Print Day</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function toggleInputMethod() {
+        const method = document.getElementById('method').value;
+
+        if (method === 'number') {
+            document.getElementById('numberInput').style.display = 'block';
+            document.getElementById('dateInput').style.display = 'none';
+        } else {
+            document.getElementById('numberInput').style.display = 'none';
+            document.getElementById('dateInput').style.display = 'block';
+        }
+    }
+
+    function printDayOfWeek() {
+        const method = document.getElementById('method').value;
+        let day;
+
+        if (method === 'number') {
+            // Get day number (1-7)
+            const dayNumber = parseInt(document.getElementById('dayNumber').value);
+
+            // Array of days (index 0 is empty since we're using 1-7 numbering)
+            const days = ["", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            // Get day name
+            day = days[dayNumber];
+
+            // Display result
+            document.getElementById('result').textContent = `Day ${dayNumber} is ${day}`;
+        } else {
+            // Get selected date
+            const selectedDate = document.getElementById('selectedDate').value;
+
+            if (!selectedDate) {
+                document.getElementById('result').textContent = "Please select a date";
+                return;
+            }
+
+            // Create Date object from selected date
+            const date = new Date(selectedDate);
+
+            // Array of days
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            // Get day name
+            day = days[date.getDay()];
+
+            // Format date for display
+            const formattedDate = date.toLocaleDateString();
+
+            // Display result
+            document.getElementById('result').textContent = `${formattedDate} is a ${day}`;
+        }
+    }
+</script>
+</body>
+</html>

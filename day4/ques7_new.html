@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Day of Week (Bootstrap Version)</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0 text-center">Print Day of Week</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Method Selection -->
+                    <div class="mb-3">
+                        <label for="method" class="form-label">Choose a method:</label>
+                        <select id="method" class="form-select" onchange="toggleInputMethod()">
+                            <option value="number">Enter day number (1-7)</option>
+                            <option value="date">Select a date</option>
+                        </select>
+                    </div>
+
+                    <!-- Number Input Section -->
+                    <div id="numberInput" class="mb-3">
+                        <label for="dayNumber" class="form-label">Enter day number (1-7, where 1 is Sunday):</label>
+                        <select id="dayNumber" class="form-select">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Input Section -->
+                    <div id="dateInput" class="mb-3" style="display: none;">
+                        <label for="selectedDate" class="form-label">Select a date:</label>
+                        <input type="date" id="selectedDate" class="form-control">
+                    </div>
+
+                    <div class="d-grid">
+                        <button onclick="printDayOfWeek()" class="btn btn-primary">Print Day</button>
+                    </div>
+
+                    <!-- Result Display -->
+                    <div class="mt-4">
+                        <div id="result" class="alert alert-success" role="alert" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function toggleInputMethod() {
+        const method = document.getElementById('method').value;
+
+        if (method === 'number') {
+            document.getElementById('numberInput').style.display = 'block';
+            document.getElementById('dateInput').style.display = 'none';
+        } else {
+            document.getElementById('numberInput').style.display = 'none';
+            document.getElementById('dateInput').style.display = 'block';
+        }
+    }
+
+    function printDayOfWeek() {
+        const resultElement = document.getElementById('result');
+        resultElement.style.display = 'block';
+
+        const method = document.getElementById('method').value;
+        let day;
+
+        if (method === 'number') {
+            // Get day number (1-7)
+            const dayNumber = parseInt(document.getElementById('dayNumber').value);
+
+            // Array of days (index 0 is empty since we're using 1-7 numbering)
+            const days = ["", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            // Get day name
+            day = days[dayNumber];
+
+            // Display result
+            resultElement.textContent = `Day ${dayNumber} is ${day}`;
+        } else {
+            // Get selected date
+            const selectedDate = document.getElementById('selectedDate').value;
+
+            if (!selectedDate) {
+                resultElement.textContent = "Please select a date";
+                resultElement.className = "alert alert-warning";
+                return;
+            }
+
+            // Create Date object from selected date
+            const date = new Date(selectedDate);
+
+            // Array of days
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            // Get day name
+            day = days[date.getDay()];
+
+            // Format date for display
+            const formattedDate = date.toLocaleDateString();
+
+            // Display result
+            resultElement.textContent = `${formattedDate} is a ${day}`;
+            resultElement.className = "alert alert-success";
+        }
+    }
+</script>
+</body>
+</html>
