@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section L - Objects with Function Constructors and Classes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .section-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .section-title {
+            color: #2c3e50;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subsection-title {
+            color: #34495e;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-size: 1.8rem;
+        }
+        .form-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            border: none;
+            padding: 10px 25px;
+            font-weight: 500;
+            border-radius: 20px;
+            color: white;
+            margin: 5px;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #7f8c8d, #95a5a6);
+            color: white;
+        }
+        .output-section {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e0e6ed;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .code-display {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid #667eea;
+            overflow-x: auto;
+        }
+        .nav-tabs .nav-link {
+            border-radius: 15px 15px 0 0;
+            border: none;
+            background: rgba(255, 255, 255, 0.7);
+            color: #667eea;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .nav-tabs .nav-link.active {
+            background: #667eea;
+            color: white;
+        }
+        .tab-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 0 15px 15px 15px;
+        }
+        .marks-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .marks-input input {
+            flex: 1;
+        }
+        .marks-list {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .mark-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .mark-item:last-child {
+            border-bottom: none;
+        }
+        .delete-mark {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 2px 8px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="section-title">Section L - Objects with Function Constructors and Classes</h1>
+
+    <!-- Function Constructor Section -->
+    <div class="section-card">
+        <h2 class="subsection-title">Function Constructors</h2>
+
+        <ul class="nav nav-tabs" id="constructorTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="employee-tab" data-bs-toggle="tab" data-bs-target="#employee" type="button" role="tab">Employee</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="student-tab" data-bs-toggle="tab" data-bs-target="#student" type="button" role="tab">Student</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="constructorTabContent">
+            <div class="tab-pane fade show active" id="employee" role="tabpanel">
+                <h4>Employee Management</h4>
+                <form id="employeeForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="empName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="empEmail" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Salary</label>
+                            <input type="number" class="form-control" id="empSalary" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Department</label>
+                            <select class="form-select" id="empDepartment" required>
+                                <option value="">Select Department</option>
+                                <option value="IT">IT</option>
+                                <option value="HR">HR</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Marketing">Marketing</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Tax Rate (%)</label>
+                            <input type="number" class="form-control" id="empTaxRate" value="10" min="0" max="50">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Employee</button>
+                    <button type="button" class="btn btn-secondary" onclick="showEmployeeConstructor()">Show Constructor Code</button>
+                </form>
+                <div class="output-section" id="employeeOutput"></div>
+            </div>
+
+            <div class="tab-pane fade" id="student" role="tabpanel">
+                <h4>Student Management</h4>
+                <form id="studentForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="stuName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="stuEmail" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Department</label>
+                            <select class="form-select" id="stuDepartment" required>
+                                <option value="">Select Department</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Engineering">Engineering</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="stuDob" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Add Marks</label>
+                        <div class="marks-input">
+                            <input type="text" class="form-control" id="subjectName" placeholder="Subject Name">
+                            <input type="number" class="form-control" id="subjectMark" placeholder="Marks" min="0" max="100">
+                            <button type="button" class="btn btn-secondary" onclick="addMark()">Add Mark</button>
+                        </div>
+                        <div class="marks-list" id="marksList">
+                            <div class="text-muted">No marks added yet</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Student</button>
+                    <button type="button" class="btn btn-secondary" onclick="showStudentConstructor()">Show Constructor Code</button>
+                </form>
+                <div class="output-section" id="studentOutput"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Class Syntax Section -->
+    <div class="section-card">
+        <h2 class="subsection-title">Class Syntax</h2>
+
+        <ul class="nav nav-tabs" id="classTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="employee-class-tab" data-bs-toggle="tab" data-bs-target="#employee-class" type="button" role="tab">Employee Class</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="student-class-tab" data-bs-toggle="tab" data-bs-target="#student-class" type="button" role="tab">Student Class</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="classTabContent">
+            <div class="tab-pane fade show active" id="employee-class" role="tabpanel">
+                <h4>Employee Class Management</h4>
+                <form id="employeeClassForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="empClassName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="empClassEmail" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Salary</label>
+                            <input type="number" class="form-control" id="empClassSalary" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Department</label>
+                            <select class="form-select" id="empClassDepartment" required>
+                                <option value="">Select Department</option>
+                                <option value="IT">IT</option>
+                                <option value="HR">HR</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Marketing">Marketing</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Tax Rate (%)</label>
+                            <input type="number" class="form-control" id="empClassTaxRate" value="10" min="0" max="50">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Employee (Class)</button>
+                    <button type="button" class="btn btn-secondary" onclick="showEmployeeClass()">Show Class Code</button>
+                </form>
+                <div class="output-section" id="employeeClassOutput"></div>
+            </div>
+
+            <div class="tab-pane fade" id="student-class" role="tabpanel">
+                <h4>Student Class Management</h4>
+                <form id="studentClassForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="stuClassName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="stuClassEmail" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Department</label>
+                            <select class="form-select" id="stuClassDepartment" required>
+                                <option value="">Select Department</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Engineering">Engineering</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="stuClassDob" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Add Marks</label>
+                        <div class="marks-input">
+                            <input type="text" class="form-control" id="classSubjectName" placeholder="Subject Name">
+                            <input type="number" class="form-control" id="classSubjectMark" placeholder="Marks" min="0" max="100">
+                            <button type="button" class="btn btn-secondary" onclick="addClassMark()">Add Mark</button>
+                        </div>
+                        <div class="marks-list" id="classMarksList">
+                            <div class="text-muted">No marks added yet</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Student (Class)</button>
+                    <button type="button" class="btn btn-secondary" onclick="showStudentClass()">Show Class Code</button>
+                </form>
+                <div class="output-section" id="studentClassOutput"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Display Section -->
+    <div class="section-card">
+        <h2 class="subsection-title">Code Demonstrations</h2>
+        <div id="codeDisplay"></div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Function Constructor for Employee
+    function Employee(name, email, salary, department, taxRate = 10) {
+        this.name = name;
+        this.email = email;
+        this.salary = salary;
+        this.department = department;
+        this.taxRate = taxRate;
+
+        this.calculateTax = function() {
+            return (this.salary * this.taxRate) / 100;
+        };
+
+        this.getDetails = function() {
+            return `Employee: ${this.name}, Email: ${this.email}, Department: ${this.department}, Salary: $${this.salary}, Tax: $${this.calculateTax().toFixed(2)}`;
+        };
+    }
+
+    // Function Constructor for Student
+    function Student(name, email, department, dob, marks = []) {
+        this.name = name;
+        this.email = email;
+        this.department = department;
+        this.dob = dob;
+        this.marks = marks;
+
+        this.calculateTotalMarks = function() {
+            return this.marks.reduce((total, mark) => total + mark.mark, 0);
+        };
+
+        this.getAverageMarks = function() {
+            if (this.marks.length === 0) return 0;
+            return this.calculateTotalMarks() / this.marks.length;
+        };
+
+        this.getDetails = function() {
+            return `Student: ${this.name}, Email: ${this.email}, Department: ${this.department}, DOB: ${this.dob}, Total Marks: ${this.calculateTotalMarks()}, Average: ${this.getAverageMarks().toFixed(2)}`;
+        };
+    }
+
+    // Class Syntax for Employee
+    class EmployeeClass {
+        constructor(name, email, salary, department, taxRate = 10) {
+            this.name = name;
+            this.email = email;
+            this.salary = salary;
+            this.department = department;
+            this.taxRate = taxRate;
+        }
+
+        calculateTax() {
+            return (this.salary * this.taxRate) / 100;
+        }
+
+        getDetails() {
+            return `Employee (Class): ${this.name}, Email: ${this.email}, Department: ${this.department}, Salary: $${this.salary}, Tax: $${this.calculateTax().toFixed(2)}`;
+        }
+    }
+
+    // Class Syntax for Student
+    class StudentClass {
+        constructor(name, email, department, dob, marks = []) {
+            this.name = name;
+            this.email = email;
+            this.department = department;
+            this.dob = dob;
+            this.marks = marks;
+        }
+
+        calculateTotalMarks() {
+            return this.marks.reduce((total, mark) => total + mark.mark, 0);
+        }
+
+        getAverageMarks() {
+            if (this.marks.length === 0) return 0;
+            return this.calculateTotalMarks() / this.marks.length;
+        }
+
+        getDetails() {
+            return `Student (Class): ${this.name}, Email: ${this.email}, Department: ${this.department}, DOB: ${this.dob}, Total Marks: ${this.calculateTotalMarks()}, Average: ${this.getAverageMarks().toFixed(2)}`;
+        }
+    }
+
+    // Storage for marks
+    let currentMarks = [];
+    let currentClassMarks = [];
+
+    // Employee Form Handler
+    document.getElementById('employeeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('empName').value;
+        const email = document.getElementById('empEmail').value;
+        const salary = parseFloat(document.getElementById('empSalary').value);
+        const department = document.getElementById('empDepartment').value;
+        const taxRate = parseFloat(document.getElementById('empTaxRate').value);
+
+        const employee = new Employee(name, email, salary, department, taxRate);
+
+        const output = document.getElementById('employeeOutput');
+        output.innerHTML = `
+            <h5>Employee Created (Function Constructor):</h5>
+            <p>${employee.getDetails()}</p>
+            <p><strong>Tax Calculation:</strong> $${employee.calculateTax().toFixed(2)}</p>
+            <hr>
+            <h6>Object Properties:</h6>
+            <pre>${JSON.stringify(employee, null, 2)}</pre>
+        `;
+
+        this.reset();
+    });
+
+    // Student Form Handler
+    document.getElementById('studentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('stuName').value;
+        const email = document.getElementById('stuEmail').value;
+        const department = document.getElementById('stuDepartment').value;
+        const dob = document.getElementById('stuDob').value;
+
+        const student = new Student(name, email, department, dob, [...currentMarks]);
+
+        const output = document.getElementById('studentOutput');
+        output.innerHTML = `
+            <h5>Student Created (Function Constructor):</h5>
+            <p>${student.getDetails()}</p>
+            <p><strong>Marks Details:</strong></p>
+            <ul>
+                ${student.marks.map(mark => `<li>${mark.subject}: ${mark.mark}</li>`).join('')}
+            </ul>
+            <hr>
+            <h6>Object Properties:</h6>
+            <pre>${JSON.stringify(student, null, 2)}</pre>
+        `;
+
+        this.reset();
+        currentMarks = [];
+        updateMarksList();
+    });
+
+    // Employee Class Form Handler
+    document.getElementById('employeeClassForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('empClassName').value;
+        const email = document.getElementById('empClassEmail').value;
+        const salary = parseFloat(document.getElementById('empClassSalary').value);
+        const department = document.getElementById('empClassDepartment').value;
+        const taxRate = parseFloat(document.getElementById('empClassTaxRate').value);
+
+        const employee = new EmployeeClass(name, email, salary, department, taxRate);
+
+        const output = document.getElementById('employeeClassOutput');
+        output.innerHTML = `
+            <h5>Employee Created (Class Syntax):</h5>
+            <p>${employee.getDetails()}</p>
+            <p><strong>Tax Calculation:</strong> $${employee.calculateTax().toFixed(2)}</p>
+            <hr>
+            <h6>Object Properties:</h6>
+            <pre>${JSON.stringify(employee, null, 2)}</pre>
+        `;
+
+        this.reset();
+    });
+
+    // Student Class Form Handler
+    document.getElementById('studentClassForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('stuClassName').value;
+        const email = document.getElementById('stuClassEmail').value;
+        const department = document.getElementById('stuClassDepartment').value;
+        const dob = document.getElementById('stuClassDob').value;
+
+        const student = new StudentClass(name, email, department, dob, [...currentClassMarks]);
+
+        const output = document.getElementById('studentClassOutput');
+        output.innerHTML = `
+            <h5>Student Created (Class Syntax):</h5>
+            <p>${student.getDetails()}</p>
+            <p><strong>Marks Details:</strong></p>
+            <ul>
+                ${student.marks.map(mark => `<li>${mark.subject}: ${mark.mark}</li>`).join('')}
+            </ul>
+            <hr>
+            <h6>Object Properties:</h6>
+            <pre>${JSON.stringify(student, null, 2)}</pre>
+        `;
+
+        this.reset();
+        currentClassMarks = [];
+        updateClassMarksList();
+    });
+
+    // Add Mark Functions
+    function addMark() {
+        const subject = document.getElementById('subjectName').value.trim();
+        const mark = parseInt(document.getElementById('subjectMark').value);
+
+        if (subject && !isNaN(mark) && mark >= 0 && mark <= 100) {
+            currentMarks.push({ subject, mark });
+            updateMarksList();
+            document.getElementById('subjectName').value = '';
+            document.getElementById('subjectMark').value = '';
+        } else {
+            alert('Please enter valid subject name and marks (0-100)');
+        }
+    }
+
+    function addClassMark() {
+        const subject = document.getElementById('classSubjectName').value.trim();
+        const mark = parseInt(document.getElementById('classSubjectMark').value);
+
+        if (subject && !isNaN(mark) && mark >= 0 && mark <= 100) {
+            currentClassMarks.push({ subject, mark });
+            updateClassMarksList();
+            document.getElementById('classSubjectName').value = '';
+            document.getElementById('classSubjectMark').value = '';
+        } else {
+            alert('Please enter valid subject name and marks (0-100)');
+        }
+    }
+
+    function updateMarksList() {
+        const marksList = document.getElementById('marksList');
+        if (currentMarks.length === 0) {
+            marksList.innerHTML = '<div class="text-muted">No marks added yet</div>';
+        } else {
+            marksList.innerHTML = currentMarks.map((mark, index) => `
+                <div class="mark-item">
+                    <span><strong>${mark.subject}:</strong> ${mark.mark}</span>
+                    <button class="delete-mark" onclick="removeMark(${index})">×</button>
+                </div>
+            `).join('');
+        }
+    }
+
+    function updateClassMarksList() {
+        const marksList = document.getElementById('classMarksList');
+        if (currentClassMarks.length === 0) {
+            marksList.innerHTML = '<div class="text-muted">No marks added yet</div>';
+        } else {
+            marksList.innerHTML = currentClassMarks.map((mark, index) => `
+                <div class="mark-item">
+                    <span><strong>${mark.subject}:</strong> ${mark.mark}</span>
+                    <button class="delete-mark" onclick="removeClassMark(${index})">×</button>
+                </div>
+            `).join('');
+        }
+    }
+
+    function removeMark(index) {
+        currentMarks.splice(index, 1);
+        updateMarksList();
+    }
+
+    function removeClassMark(index) {
+        currentClassMarks.splice(index, 1);
+        updateClassMarksList();
+    }
+
+    // Code Display Functions
+    function showEmployeeConstructor() {
+        const codeDisplay = document.getElementById('codeDisplay');
+        codeDisplay.innerHTML = `
+            <div class="code-display">
+                <h5>Employee Function Constructor:</h5>
+                <pre><code>function Employee(name, email, salary, department, taxRate = 10) {
+                this.name = name;
+                this.email = email;
+                this.salary = salary;
+                this.department = department;
+                this.taxRate = taxRate;
+
+                this.calculateTax = function() {
+                    return (this.salary * this.taxRate) / 100;
+                };
+
+                this.getDetails = function() {
+                    return \`Employee: \${this.name}, Email: \${this.email},
+                            Department: \${this.department}, Salary: $\${this.salary},
+                            Tax: $\${this.calculateTax().toFixed(2)}\`;
+                };
+                }
+
+                // Usage:
+                const employee = new Employee("John Doe", "john@email.com", 50000, "IT", 15);
+                console.log(employee.getDetails());
+                console.log("Tax Amount:", employee.calculateTax());</code></pre>
+                            </div>
+                        `;
+                    }
+
+                    function showStudentConstructor() {
+                        const codeDisplay = document.getElementById('codeDisplay');
+                        codeDisplay.innerHTML = `
+                            <div class="code-display">
+                                <h5>Student Function Constructor:</h5>
+                                <pre><code>function Student(name, email, department, dob, marks = []) {
+                this.name = name;
+                this.email = email;
+                this.department = department;
+                this.dob = dob;
+                this.marks = marks; // Array of Objects {subject, mark}
+
+                this.calculateTotalMarks = function() {
+                    return this.marks.reduce((total, mark) => total + mark.mark, 0);
+                };
+
+                this.getAverageMarks = function() {
+                    if (this.marks.length === 0) return 0;
+                    return this.calculateTotalMarks() / this.marks.length;
+                };
+
+                this.getDetails = function() {
+                    return \`Student: \${this.name}, Email: \${this.email},
+                            Department: \${this.department}, DOB: \${this.dob},
+                            Total Marks: \${this.calculateTotalMarks()},
+                            Average: \${this.getAverageMarks().toFixed(2)}\`;
+                };
+                }
+
+                // Usage:
+                const marks = [
+                {subject: "Math", mark: 95},
+                {subject: "Science", mark: 88},
+                {subject: "English", mark: 92}
+                ];
+                const student = new Student("Jane Smith", "jane@email.com", "Computer Science", "2000-01-15", marks);
+                console.log(student.getDetails());
+                console.log("Total Marks:", student.calculateTotalMarks());</code></pre>
+                            </div>
+                        `;
+                    }
+
+                    function showEmployeeClass() {
+                        const codeDisplay = document.getElementById('codeDisplay');
+                        codeDisplay.innerHTML = `
+                            <div class="code-display">
+                                <h5>Employee Class Syntax:</h5>
+                                <pre><code>class EmployeeClass {
+                constructor(name, email, salary, department, taxRate = 10) {
+                    this.name = name;
+                    this.email = email;
+                    this.salary = salary;
+                    this.department = department;
+                    this.taxRate = taxRate;
+                }
+
+                calculateTax() {
+                    return (this.salary * this.taxRate) / 100;
+                }
+
+                getDetails() {
+                    return \`Employee (Class): \${this.name}, Email: \${this.email},
+                            Department: \${this.department}, Salary: $\${this.salary},
+                            Tax: $\${this.calculateTax().toFixed(2)}\`;
+                }
+                }
+
+                // Usage:
+                const employee = new EmployeeClass("John Doe", "john@email.com", 50000, "IT", 15);
+                console.log(employee.getDetails());
+                console.log("Tax Amount:", employee.calculateTax());</code></pre>
+                            </div>
+                        `;
+                    }
+
+                    function showStudentClass() {
+                        const codeDisplay = document.getElementById('codeDisplay');
+                        codeDisplay.innerHTML = `
+                            <div class="code-display">
+                                <h5>Student Class Syntax:</h5>
+                                <pre><code>class StudentClass {
+                constructor(name, email, department, dob, marks = []) {
+                    this.name = name;
+                    this.email = email;
+                    this.department = department;
+                    this.dob = dob;
+                    this.marks = marks; // Array of Objects {subject, mark}
+                }
+
+                calculateTotalMarks() {
+                    return this.marks.reduce((total, mark) => total + mark.mark, 0);
+                }
+
+                getAverageMarks() {
+                    if (this.marks.length === 0) return 0;
+                    return this.calculateTotalMarks() / this.marks.length;
+                }
+
+                getDetails() {
+                    return \`Student (Class): \${this.name}, Email: \${this.email},
+                            Department: \${this.department}, DOB: \${this.dob},
+                            Total Marks: \${this.calculateTotalMarks()},
+                            Average: \${this.getAverageMarks().toFixed(2)}\`;
+                }
+                }
+
+                // Usage:
+                const marks = [
+                {subject: "Math", mark: 95},
+                {subject: "Science", mark: 88},
+                {subject: "English", mark: 92}
+                ];
+                const student = new StudentClass("Jane Smith", "jane@email.com", "Computer Science", "2000-01-15", marks);
+                console.log(student.getDetails());
+                console.log("Total Marks:", student.calculateTotalMarks());</code></pre>
+                            </div>
+                        `;
+                    }
+
+                // Initialize marks lists
+                updateMarksList();
+                updateClassMarksList();
+</script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section K - Movie Data Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .table-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .error {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 5px;
+        }
+        .form-control:invalid {
+            border-color: #dc3545;
+        }
+        .form-control:valid {
+            border-color: #28a745;
+        }
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            padding: 10px 30px;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+        }
+        .table-responsive {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .table th {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+        .table td {
+            vertical-align: middle;
+            border-color: #e9ecef;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        .delete-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+        }
+        .delete-btn:hover {
+            background: linear-gradient(45deg, #c0392b, #e74c3c);
+            transform: translateY(-1px);
+        }
+        .checkbox-group, .radio-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .form-check {
+            margin-bottom: 10px;
+        }
+        .form-check-input:checked {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        .form-check-label {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-5 section-title">Section K - Movie Data Management</h1>
+
+    <!-- Movie Form -->
+    <div class="form-section">
+        <h2 class="mb-4">Add Movie</h2>
+        <form id="movieForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="movieName" class="form-label">Movie Name *</label>
+                    <input type="text" class="form-control" id="movieName" required>
+                    <div class="error" id="movieNameError"></div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="actor" class="form-label">Actor *</label>
+                    <input type="text" class="form-control" id="actor" required>
+                    <div class="error" id="actorError"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="release" class="form-label">Release Date</label>
+                    <input type="date" class="form-control" id="release">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="showTime" class="form-label">Show Time</label>
+                    <input type="datetime-local" class="form-control" id="showTime">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Movie Type</label>
+                    <div class="checkbox-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="2D" id="type2d">
+                            <label class="form-check-label" for="type2d">2D</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="3D" id="type3d">
+                            <label class="form-check-label" for="type3d">3D</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="IMAX" id="typeImax">
+                            <label class="form-check-label" for="typeImax">IMAX</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Language</label>
+                    <div class="radio-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="language" value="English" id="langEnglish">
+                            <label class="form-check-label" for="langEnglish">English</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="language" value="Hindi" id="langHindi">
+                            <label class="form-check-label" for="langHindi">Hindi</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="language" value="Spanish" id="langSpanish">
+                            <label class="form-check-label" for="langSpanish">Spanish</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Movie</button>
+        </form>
+    </div>
+
+    <!-- Pizza Form -->
+    <div class="form-section">
+        <h2 class="mb-4">Pizza Shop 2.0 - Place Order</h2>
+        <form id="pizzaForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="customerName" class="form-label">Customer Name *</label>
+                    <input type="text" class="form-control" id="customerName" required>
+                    <div class="error" id="customerNameError"></div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Pizza Toppings</label>
+                    <div class="radio-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="toppings" value="Supreme" id="toppingSupreme">
+                            <label class="form-check-label" for="toppingSupreme">Supreme</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="toppings" value="Vegetarian" id="toppingVegetarian">
+                            <label class="form-check-label" for="toppingVegetarian">Vegetarian</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="toppings" value="Hawaiian" id="toppingHawaiian">
+                            <label class="form-check-label" for="toppingHawaiian">Hawaiian</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Sauce Selection</label>
+                    <div class="radio-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sauce" value="Tomato" id="sauceTomato">
+                            <label class="form-check-label" for="sauceTomato">Tomato</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sauce" value="BBQ" id="sauceBBQ">
+                            <label class="form-check-label" for="sauceBBQ">BBQ</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sauce" value="Alfredo" id="sauceAlfredo">
+                            <label class="form-check-label" for="sauceAlfredo">Alfredo</label>
+                        </div>
+                    </div>
+                    <div class="error" id="sauceError"></div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Optional Extras</label>
+                    <div class="checkbox-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Extra Cheese" id="extraCheese">
+                            <label class="form-check-label" for="extraCheese">Extra Cheese</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Gluten Free Base" id="glutenFree">
+                            <label class="form-check-label" for="glutenFree">Gluten Free Base</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="deliveryInstructions" class="form-label">Delivery Instructions *</label>
+                <textarea class="form-control" id="deliveryInstructions" rows="3" required></textarea>
+                <div class="error" id="deliveryError"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+    </div>
+
+    <!-- Movies Table -->
+    <div class="table-section">
+        <h2 class="mb-4">Movies List</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Movie Name</th>
+                    <th>Actor</th>
+                    <th>Release Date</th>
+                    <th>Movie Type</th>
+                    <th>Language</th>
+                    <th>Show Time</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="movieTableBody">
+                <!-- Movies will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pizza Orders Table -->
+    <div class="table-section">
+        <h2 class="mb-4">Pizza Orders</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Toppings</th>
+                    <th>Sauce</th>
+                    <th>Extras</th>
+                    <th>Delivery Instructions</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="pizzaTableBody">
+                <!-- Pizza orders will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    let movies = [];
+    let pizzaOrders = [];
+
+    // Movie Form Validation and Submission
+    document.getElementById('movieForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let isValid = true;
+
+        // Validate Movie Name (at least 5 characters)
+        const movieName = document.getElementById('movieName').value.trim();
+        const movieNameError = document.getElementById('movieNameError');
+        if (movieName.length < 5) {
+            movieNameError.textContent = 'Movie name must be at least 5 characters long';
+            isValid = false;
+        } else {
+            movieNameError.textContent = '';
+        }
+
+        // Validate Actor Name (at least 3 characters)
+        const actor = document.getElementById('actor').value.trim();
+        const actorError = document.getElementById('actorError');
+        if (actor.length < 3) {
+            actorError.textContent = 'Actor name must be at least 3 characters long';
+            isValid = false;
+        } else {
+            actorError.textContent = '';
+        }
+
+        if (isValid) {
+            // Get movie types
+            const movieTypes = [];
+            if (document.getElementById('type2d').checked) movieTypes.push('2D');
+            if (document.getElementById('type3d').checked) movieTypes.push('3D');
+            if (document.getElementById('typeImax').checked) movieTypes.push('IMAX');
+
+            // Get selected language
+            const language = document.querySelector('input[name="language"]:checked')?.value || 'Not specified';
+
+            const movie = {
+                movieName: movieName,
+                actor: actor,
+                release: document.getElementById('release').value || 'Not specified',
+                movieType: movieTypes.join(', ') || 'Not specified',
+                language: language,
+                showTime: document.getElementById('showTime').value || 'Not specified'
+            };
+
+            movies.push(movie);
+            updateMovieTable();
+            this.reset();
+        }
+    });
+
+    // Pizza Form Validation and Submission
+    document.getElementById('pizzaForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let isValid = true;
+
+        // Validate Customer Name (at least 5 characters)
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerNameError = document.getElementById('customerNameError');
+        if (customerName.length < 5) {
+            customerNameError.textContent = 'Customer name must be at least 5 characters long';
+            isValid = false;
+        } else {
+            customerNameError.textContent = '';
+        }
+
+        // Validate Tomato sauce and Supreme toppings conflict
+        const selectedSauce = document.querySelector('input[name="sauce"]:checked')?.value;
+        const selectedToppings = document.querySelector('input[name="toppings"]:checked')?.value;
+        const sauceError = document.getElementById('sauceError');
+
+        if (selectedSauce === 'Tomato' && selectedToppings === 'Supreme') {
+            sauceError.textContent = 'Supreme toppings cannot be selected with Tomato sauce';
+            isValid = false;
+        } else {
+            sauceError.textContent = '';
+        }
+
+        // Validate Delivery Instructions (at least 5 words)
+        const deliveryInstructions = document.getElementById('deliveryInstructions').value.trim();
+        const deliveryError = document.getElementById('deliveryError');
+        const wordCount = deliveryInstructions.split(/\s+/).filter(word => word.length > 0).length;
+
+        if (wordCount < 5) {
+            deliveryError.textContent = 'Delivery instructions must have at least 5 words';
+            isValid = false;
+        } else {
+            deliveryError.textContent = '';
+        }
+
+        if (isValid) {
+            // Get extras
+            const extras = [];
+            if (document.getElementById('extraCheese').checked) extras.push('Extra Cheese');
+            if (document.getElementById('glutenFree').checked) extras.push('Gluten Free Base');
+
+            const order = {
+                customerName: customerName,
+                toppings: selectedToppings || 'Not specified',
+                sauce: selectedSauce || 'Not specified',
+                extras: extras.join(', ') || 'None',
+                deliveryInstructions: deliveryInstructions
+            };
+
+            pizzaOrders.push(order);
+            updatePizzaTable();
+            this.reset();
+        }
+    });
+
+    // Real-time validation for sauce and toppings conflict
+    document.querySelectorAll('input[name="sauce"], input[name="toppings"]').forEach(input => {
+        input.addEventListener('change', function() {
+            const selectedSauce = document.querySelector('input[name="sauce"]:checked')?.value;
+            const selectedToppings = document.querySelector('input[name="toppings"]:checked')?.value;
+            const sauceError = document.getElementById('sauceError');
+
+            if (selectedSauce === 'Tomato' && selectedToppings === 'Supreme') {
+                sauceError.textContent = 'Supreme toppings cannot be selected with Tomato sauce';
+            } else {
+                sauceError.textContent = '';
+            }
+        });
+    });
+
+    function updateMovieTable() {
+        const tbody = document.getElementById('movieTableBody');
+        tbody.innerHTML = '';
+
+        movies.forEach((movie, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${movie.movieName}</td>
+                <td>${movie.actor}</td>
+                <td>${movie.release}</td>
+                <td>${movie.movieType}</td>
+                <td>${movie.language}</td>
+                <td>${movie.showTime}</td>
+                <td><button class="delete-btn" onclick="deleteMovie(${index})">Delete</button></td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function updatePizzaTable() {
+        const tbody = document.getElementById('pizzaTableBody');
+        tbody.innerHTML = '';
+
+        pizzaOrders.forEach((order, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.customerName}</td>
+                <td>${order.toppings}</td>
+                <td>${order.sauce}</td>
+                <td>${order.extras}</td>
+                <td>${order.deliveryInstructions}</td>
+                <td><button class="delete-btn" onclick="deletePizzaOrder(${index})">Delete</button></td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function deleteMovie(index) {
+        movies.splice(index, 1);
+        updateMovieTable();
+    }
+
+    function deletePizzaOrder(index) {
+        pizzaOrders.splice(index, 1);
+        updatePizzaTable();
+    }
+</script>
+</body>
+</html>
