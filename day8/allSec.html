@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Complete Assignment</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .moving-div {
+            width: 100px;
+            height: 100px;
+            background-color: #007bff;
+            position: relative;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .section-header {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            padding: 15px;
+            margin: 20px 0 10px 0;
+            border-radius: 8px;
+        }
+        .form-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .error {
+            color: #dc3545;
+            font-size: 0.875em;
+        }
+        .task-item {
+            background: #e9ecef;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .char-counter {
+            font-size: 0.875em;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">jQuery Complete Assignment</h1>
+
+    <!-- Section A -->
+    <div class="section-header">
+        <h2>Section A</h2>
+    </div>
+
+    <!-- A.1 - Static Movie Table -->
+    <div class="form-section">
+        <h4>A.1 - Static Movies Table</h4>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>Movie Name</th>
+                <th>Price</th>
+                <th>Seat</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Avengers: Endgame</td>
+                <td>$15.99</td>
+                <td>A-15</td>
+            </tr>
+            <tr>
+                <td>Spider-Man: No Way Home</td>
+                <td>$18.99</td>
+                <td>B-22</td>
+            </tr>
+            <tr>
+                <td>The Batman</td>
+                <td>$16.50</td>
+                <td>C-08</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- A.2 - Dynamic Movie Form -->
+    <div class="form-section">
+        <h4>A.2 - Add Movie Details</h4>
+        <form id="movieForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Movie Name</label>
+                    <input type="text" class="form-control" id="movieName" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Actor</label>
+                    <input type="text" class="form-control" id="actor" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Release Date</label>
+                    <input type="date" class="form-control" id="release" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Show Time</label>
+                    <input type="datetime-local" class="form-control" id="showTime" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Movie Type</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="type2d" value="2D">
+                    <label class="form-check-label" for="type2d">2D</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="type3d" value="3D">
+                    <label class="form-check-label" for="type3d">3D</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="typeImax" value="IMAX">
+                    <label class="form-check-label" for="typeImax">IMAX</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Language</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="language" id="english" value="English">
+                    <label class="form-check-label" for="english">English</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="language" id="hindi" value="Hindi">
+                    <label class="form-check-label" for="hindi">Hindi</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="language" id="spanish" value="Spanish">
+                    <label class="form-check-label" for="spanish">Spanish</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Movie</button>
+        </form>
+
+        <div class="mt-4">
+            <h5>Movies List</h5>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                <tr>
+                    <th>Movie Name</th>
+                    <th>Actor</th>
+                    <th>Release</th>
+                    <th>Type</th>
+                    <th>Language</th>
+                    <th>Show Time</th>
+                </tr>
+                </thead>
+                <tbody id="moviesTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section B -->
+    <div class="section-header">
+        <h2>Section B - With Validation</h2>
+    </div>
+
+    <!-- B.1 - Movie Form with Validation -->
+    <div class="form-section">
+        <h4>B.1 - Movie Form with Validation</h4>
+        <form id="validatedMovieForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Movie Name (min 5 chars)</label>
+                    <input type="text" class="form-control" id="validatedMovieName" required>
+                    <div class="error" id="movieNameError"></div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Actor (min 3 chars)</label>
+                    <input type="text" class="form-control" id="validatedActor" required>
+                    <div class="error" id="actorError"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Release Date</label>
+                    <input type="date" class="form-control" id="validatedRelease" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Show Time</label>
+                    <input type="datetime-local" class="form-control" id="validatedShowTime" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Movie Type</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="validated2d" value="2D">
+                    <label class="form-check-label" for="validated2d">2D</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="validated3d" value="3D">
+                    <label class="form-check-label" for="validated3d">3D</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="validatedImax" value="IMAX">
+                    <label class="form-check-label" for="validatedImax">IMAX</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Language</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="validatedLanguage" id="validatedEnglish" value="English">
+                    <label class="form-check-label" for="validatedEnglish">English</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="validatedLanguage" id="validatedHindi" value="Hindi">
+                    <label class="form-check-label" for="validatedHindi">Hindi</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Add Validated Movie</button>
+        </form>
+
+        <div class="mt-4">
+            <h5>Validated Movies List</h5>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                <tr>
+                    <th>Movie Name</th>
+                    <th>Actor</th>
+                    <th>Release</th>
+                    <th>Type</th>
+                    <th>Language</th>
+                    <th>Show Time</th>
+                </tr>
+                </thead>
+                <tbody id="validatedMoviesTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- B.2 - Pizza Shop with Validation -->
+    <div class="form-section">
+        <h4>B.2 - Pizza Shop with Validation</h4>
+        <form id="pizzaForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Name (min 5 chars)</label>
+                    <input type="text" class="form-control" id="customerName" required>
+                    <div class="error" id="nameError"></div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Pizza Sauce</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sauce" id="tomato" value="Tomato">
+                    <label class="form-check-label" for="tomato">Tomato</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sauce" id="bbq" value="BBQ">
+                    <label class="form-check-label" for="bbq">BBQ</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sauce" id="white" value="White">
+                    <label class="form-check-label" for="white">White</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Toppings</label><br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="pepperoni" value="Pepperoni">
+                    <label class="form-check-label" for="pepperoni">Pepperoni</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="mushrooms" value="Mushrooms">
+                    <label class="form-check-label" for="mushrooms">Mushrooms</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="supreme" value="Supreme">
+                    <label class="form-check-label" for="supreme">Supreme</label>
+                </div>
+                <div class="error" id="toppingsError"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Delivery Instructions (min 5 words)</label>
+                <textarea class="form-control" id="instructions" rows="3" required></textarea>
+                <div class="error" id="instructionsError"></div>
+            </div>
+            <button type="submit" class="btn btn-warning">Order Pizza</button>
+        </form>
+
+        <div class="mt-4">
+            <h5>Pizza Orders</h5>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Sauce</th>
+                    <th>Toppings</th>
+                    <th>Instructions</th>
+                </tr>
+                </thead>
+                <tbody id="pizzaOrdersTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section C -->
+    <div class="section-header">
+        <h2>Section C - jQuery Effects</h2>
+    </div>
+
+    <!-- C.1 - Effects with Dropdown -->
+    <div class="form-section">
+        <h4>C.1 - jQuery Effects</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">Select Effect:</label>
+                <select class="form-select" id="effectSelect">
+                    <option value="">Choose an effect</option>
+                    <option value="toggle">Toggle</option>
+                    <option value="fadeIn">Fade In</option>
+                    <option value="fadeOut">Fade Out</option>
+                    <option value="fadeToggle">Fade Toggle</option>
+                    <option value="slideToggle">Slide Toggle</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-info mt-4" id="applyEffect">Apply Effect</button>
+                <button class="btn btn-secondary mt-4" id="resetEffect">Reset</button>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div id="effectTarget" class="alert alert-info">
+                <h5>Effect Target</h5>
+                <p>This element will be affected by the selected jQuery effect.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- C.2 - Moving Div -->
+    <div class="form-section">
+        <h4>C.2 - Moving Div Animation</h4>
+        <button class="btn btn-primary mb-3" id="startAnimation">Start Clockwise Movement</button>
+        <div class="border p-4" style="height: 300px; position: relative; overflow: hidden;">
+            <div class="moving-div" id="movingDiv">
+                <svg width="200" height="200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#000" stroke-width="2"/>
+                    <circle cx="12" cy="9" r="3" fill="#000"/>
+                    <path d="M12 15C9 15 6 17 6 19V20H18V19C18 17 15 15 12 15Z" fill="#000"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section D -->
+    <div class="section-header">
+        <h2>Section D - Interactive Features</h2>
+    </div>
+
+    <!-- D.1 - Task List -->
+    <div class="form-section">
+        <h4>D.1 - Task List Manager</h4>
+        <div class="row">
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="taskInput" placeholder="Enter a new task...">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success w-100" id="addTask">Add Task</button>
+            </div>
+        </div>
+        <div class="mt-4" id="taskList">
+            <h5>Tasks:</h5>
+            <div id="tasks"></div>
+        </div>
+    </div>
+
+    <!-- D.2 - Character Counter -->
+    <div class="form-section">
+        <h4>D.2 - Character Counter</h4>
+        <div class="mb-3">
+            <label class="form-label">Type something:</label>
+            <textarea class="form-control" id="charCountTextarea" rows="5" placeholder="Start typing to see the character count..."></textarea>
+            <div class="char-counter mt-2">
+                Characters: <span id="charCount">0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Section A.2 - Movie Form
+        $('#movieForm').submit(function(e) {
+            e.preventDefault();
+
+            const movieName = $('#movieName').val();
+            const actor = $('#actor').val();
+            const release = $('#release').val();
+            const showTime = $('#showTime').val();
+            const language = $('input[name="language"]:checked').val() || 'Not selected';
+
+            const types = [];
+            $('#movieForm input[type="checkbox"]:checked').each(function() {
+                types.push($(this).val());
+            });
+            const movieType = types.length > 0 ? types.join(', ') : 'Not selected';
+
+            const row = `
+                <tr>
+                    <td>${movieName}</td>
+                    <td>${actor}</td>
+                    <td>${release}</td>
+                    <td>${movieType}</td>
+                    <td>${language}</td>
+                    <td>${showTime}</td>
+                </tr>
+            `;
+
+            $('#moviesTableBody').append(row);
+            $('#movieForm')[0].reset();
+        });
+
+        // Section B.1 - Validated Movie Form
+        $('#validatedMovieForm').submit(function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Validate movie name
+            const movieName = $('#validatedMovieName').val();
+            if (movieName.length < 5) {
+                $('#movieNameError').text('Movie name must be at least 5 characters long');
+                isValid = false;
+            } else {
+                $('#movieNameError').text('');
+            }
+
+            // Validate actor name
+            const actor = $('#validatedActor').val();
+            if (actor.length < 3) {
+                $('#actorError').text('Actor name must be at least 3 characters long');
+                isValid = false;
+            } else {
+                $('#actorError').text('');
+            }
+
+            if (isValid) {
+                const release = $('#validatedRelease').val();
+                const showTime = $('#validatedShowTime').val();
+                const language = $('input[name="validatedLanguage"]:checked').val() || 'Not selected';
+
+                const types = [];
+                $('#validatedMovieForm input[type="checkbox"]:checked').each(function() {
+                    types.push($(this).val());
+                });
+                const movieType = types.length > 0 ? types.join(', ') : 'Not selected';
+
+                const row = `
+                    <tr>
+                        <td>${movieName}</td>
+                        <td>${actor}</td>
+                        <td>${release}</td>
+                        <td>${movieType}</td>
+                        <td>${language}</td>
+                        <td>${showTime}</td>
+                    </tr>
+                `;
+
+                $('#validatedMoviesTableBody').append(row);
+                $('#validatedMovieForm')[0].reset();
+                $('.error').text('');
+            }
+        });
+
+        // Section B.2 - Pizza Form with Validation
+        $('#pizzaForm').submit(function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Validate name (min 5 chars)
+            const name = $('#customerName').val();
+            if (name.length < 5) {
+                $('#nameError').text('Name must be at least 5 characters long');
+                isValid = false;
+            } else {
+                $('#nameError').text('');
+            }
+
+            // Validate sauce and toppings combination
+            const sauce = $('input[name="sauce"]:checked').val();
+            const supremeChecked = $('#supreme').is(':checked');
+            if (sauce === 'Tomato' && supremeChecked) {
+                $('#toppingsError').text('Cannot select Supreme toppings with Tomato sauce');
+                isValid = false;
+            } else {
+                $('#toppingsError').text('');
+            }
+
+            // Validate delivery instructions (min 5 words)
+            const instructions = $('#instructions').val();
+            const wordCount = instructions.trim().split(/\s+/).length;
+            if (wordCount < 5) {
+                $('#instructionsError').text('Delivery instructions must have at least 5 words');
+                isValid = false;
+            } else {
+                $('#instructionsError').text('');
+            }
+
+            if (isValid) {
+                const phone = $('#phone').val();
+
+                const toppings = [];
+                $('#pizzaForm input[type="checkbox"]:checked').each(function() {
+                    toppings.push($(this).val());
+                });
+                const toppingsList = toppings.length > 0 ? toppings.join(', ') : 'None';
+
+                const row = `
+                    <tr>
+                        <td>${name}</td>
+                        <td>${phone}</td>
+                        <td>${sauce || 'Not selected'}</td>
+                        <td>${toppingsList}</td>
+                        <td>${instructions}</td>
+                    </tr>
+                `;
+
+                $('#pizzaOrdersTableBody').append(row);
+                $('#pizzaForm')[0].reset();
+                $('.error').text('');
+            }
+        });
+
+        // Sauce and toppings validation logic
+        $('input[name="sauce"]').change(function() {
+            if ($(this).val() === 'Tomato' && $('#supreme').is(':checked')) {
+                $('#supreme').prop('checked', false);
+                alert('Supreme toppings cannot be selected with Tomato sauce');
+            }
+        });
+
+        $('#supreme').change(function() {
+            if ($(this).is(':checked') && $('input[name="sauce"]:checked').val() === 'Tomato') {
+                $(this).prop('checked', false);
+                alert('Supreme toppings cannot be selected with Tomato sauce');
+            }
+        });
+
+        // Section C.1 - jQuery Effects
+        $('#applyEffect').click(function() {
+            const effect = $('#effectSelect').val();
+            const target = $('#effectTarget');
+
+            switch(effect) {
+                case 'toggle':
+                    target.toggle();
+                    break;
+                case 'fadeIn':
+                    target.fadeIn();
+                    break;
+                case 'fadeOut':
+                    target.fadeOut();
+                    break;
+                case 'fadeToggle':
+                    target.fadeToggle();
+                    break;
+                case 'slideToggle':
+                    target.slideToggle();
+                    break;
+                default:
+                    alert('Please select an effect');
+            }
+        });
+
+        $('#resetEffect').click(function() {
+            $('#effectTarget').show();
+        });
+
+        // Section C.2 - Moving Div Animation
+        $('#startAnimation').click(function() {
+            const div = $('#movingDiv');
+            const container = div.parent();
+            const containerWidth = container.width() - 100;
+            const containerHeight = container.height() - 100;
+
+            // Reset position
+            div.css({left: 0, top: 0});
+
+            // Clockwise movement: right -> down -> left -> up -> center
+            div.animate({left: containerWidth}, 1000)
+               .animate({top: containerHeight}, 1000)
+               .animate({left: 0}, 1000)
+               .animate({top: 0}, 1000)
+               .animate({left: containerWidth/2 - 50, top: containerHeight/2 - 50}, 1000);
+        });
+
+        // Section D.1 - Task List
+        let taskCounter = 0;
+
+        $('#addTask').click(function() {
+            const taskText = $('#taskInput').val().trim();
+            if (taskText) {
+                taskCounter++;
+                const taskHtml = `
+                    <div class="task-item" id="task-${taskCounter}">
+                        <span>${taskText}</span>
+                        <button class="btn btn-sm btn-danger remove-task" data-task-id="${taskCounter}">Remove</button>
+                    </div>
+                `;
+                $('#tasks').append(taskHtml);
+                $('#taskInput').val('');
+            }
+        });
+
+        // Add task on Enter key
+        $('#taskInput').keypress(function(e) {
+            if (e.which === 13) {
+                $('#addTask').click();
+            }
+        });
+
+        // Remove task
+        $(document).on('click', '.remove-task', function() {
+            const taskId = $(this).data('task-id');
+            $(`#task-${taskId}`).remove();
+        });
+
+        // Section D.2 - Character Counter
+        $('#charCountTextarea').on('input', function() {
+            const count = $(this).val().length;
+            $('#charCount').text(count);
+        });
+    });
+</script>
+</body>
+</html>

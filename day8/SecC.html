@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section C - jQuery Effects</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <style>
+        .moving-div {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 10px;
+            position: relative;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .moving-div img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .dropdown-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .controls {
+            margin: 20px 0;
+        }
+
+        .btn-group {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Section C - jQuery Effects Demo</h1>
+
+    <!-- Dropdown Effects Section -->
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <h2>1. Dropdown Effects</h2>
+            <div class="controls">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary" id="toggleBtn">Toggle</button>
+                    <button class="btn btn-success" id="fadeInBtn">Fade In</button>
+                    <button class="btn btn-warning" id="fadeOutBtn">Fade Out</button>
+                    <button class="btn btn-info" id="fadeToggleBtn">Fade Toggle</button>
+                    <button class="btn btn-secondary" id="slideToggleBtn">Slide Toggle</button>
+                </div>
+            </div>
+
+            <div class="dropdown-content" id="dropdownContent">
+                <h4>Dropdown Content</h4>
+                <p>This is a sample dropdown content that demonstrates various jQuery effects:</p>
+                <ul>
+                    <li><strong>Toggle:</strong> Shows/hides instantly</li>
+                    <li><strong>Fade In:</strong> Gradually appears</li>
+                    <li><strong>Fade Out:</strong> Gradually disappears</li>
+                    <li><strong>Fade Toggle:</strong> Alternates fade in/out</li>
+                    <li><strong>Slide Toggle:</strong> Slides up/down</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Moving Div Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>2. Moving Div Block (100px × 100px)</h2>
+            <div class="controls">
+                <button class="btn btn-danger" id="moveBtn">Start Clockwise Movement</button>
+                <button class="btn btn-outline-secondary" id="resetBtn">Reset Position</button>
+            </div>
+
+            <div class="position-relative" style="height: 400px; border: 2px dashed #ccc; margin: 20px 0;">
+                <div class="moving-div" id="movingDiv">
+                    <svg width="200" height="200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="#000" stroke-width="2"/>
+                        <circle cx="12" cy="9" r="3" fill="#000"/>
+                        <path d="M12 15C9 15 6 17 6 19V20H18V19C18 17 15 15 12 15Z" fill="#000"/>
+                    </svg>
+                </div>
+                <small class="text-muted">Container area for movement demonstration</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Dropdown Effects
+        $('#toggleBtn').click(function() {
+            $('#dropdownContent').toggle();
+        });
+
+        $('#fadeInBtn').click(function() {
+            $('#dropdownContent').fadeIn(800);
+        });
+
+        $('#fadeOutBtn').click(function() {
+            $('#dropdownContent').fadeOut(800);
+        });
+
+        $('#fadeToggleBtn').click(function() {
+            $('#dropdownContent').fadeToggle(800);
+        });
+
+        $('#slideToggleBtn').click(function() {
+            $('#dropdownContent').slideToggle(800);
+        });
+
+        // Moving Div Animation
+        let isMoving = false;
+        const originalPosition = { left: 0, top: 0 };
+
+        $('#moveBtn').click(function() {
+            if (!isMoving) {
+                isMoving = true;
+                $(this).text('Moving...').prop('disabled', true);
+
+                const $div = $('#movingDiv');
+                const containerWidth = $div.parent().width() - 100;
+                const containerHeight = $div.parent().height() - 100;
+
+                // Clockwise movement: right -> down -> left -> up -> center
+                $div.animate({ left: containerWidth + 'px' }, 1000)
+                    .animate({ top: containerHeight + 'px' }, 1000)
+                    .animate({ left: '0px' }, 1000)
+                    .animate({ top: '0px' }, 1000, function() {
+                        isMoving = false;
+                        $('#moveBtn').text('Start Clockwise Movement').prop('disabled', false);
+                    });
+            }
+        });
+
+        $('#resetBtn').click(function() {
+            if (!isMoving) {
+                $('#movingDiv').stop().css({
+                    left: originalPosition.left,
+                    top: originalPosition.top
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
