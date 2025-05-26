@@ -1,0 +1,4 @@
+This is a sample text file.
+It contains multiple lines.
+Created for demonstration purposes.
+Node.js file operations are powerful!
