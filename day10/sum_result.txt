@@ -1,0 +1,14 @@
+CALCULATION RESULTS
+==============================
+
+Original Numbers: 10, 25, 30, 45, 50, 15, 20, 35, 40, 55, 60, 75, 80, 95, 100
+
+Calculations:
+- Sum: 735
+- Count: 15
+- Average: 49.00
+- Maximum: 100
+- Minimum: 10
+
+Calculated on: 5/28/2025, 12:46:14 AM
+Source file: numbers.txt
