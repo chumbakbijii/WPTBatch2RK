@@ -2,9 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ques1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .data-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #00ff88;
+        }
+        .data-item {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        .highlight {
+            color: #00ff88;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <h1>📊 Data Dashboard</h1>
 
+    <div class="data-card">
+        <h2>System Information</h2>
+        <div class="data-item">Server Status: <span class="highlight">Online</span></div>
+        <div class="data-item">Load Time: <span class="highlight" id="loadTime"></span></div>
+        <div class="data-item">Current Time: <span class="highlight" id="currentTime"></span></div>
+    </div>
+
+    <div class="data-card">
+        <h2>User Analytics</h2>
+        <div class="data-item">Active Users: <span class="highlight">1,247</span></div>
+        <div class="data-item">Total Sessions: <span class="highlight">15,632</span></div>
+        <div class="data-item">Page Views: <span class="highlight">48,291</span></div>
+    </div>
+
+    <div class="data-card">
+        <h2>Performance Metrics</h2>
+        <div class="data-item">Response Time: <span class="highlight">0.2ms</span></div>
+        <div class="data-item">Uptime: <span class="highlight">99.9%</span></div>
+        <div class="data-item">Memory Usage: <span class="highlight">45%</span></div>
+    </div>
+</div>
+
+<script>
+    // Display current time
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('currentTime').textContent = now.toLocaleString();
+    }
+
+    // Display load time
+    const startTime = performance.now();
+    window.addEventListener('load', () => {
+        const loadTime = (performance.now() - startTime).toFixed(2);
+        document.getElementById('loadTime').textContent = loadTime + 'ms';
+    });
+
+    updateTime();
+    setInterval(updateTime, 1000);
+</script>
 </body>
 </html>
