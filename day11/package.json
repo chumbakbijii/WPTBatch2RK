@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "name": "day11",
+  "version": "1.0.0",
+  "description": "kala jadu",
+  "main": "n",
+  "devDependencies": {},
+  "scripts": {
+    "test": "n"
+  },
+  "author": "",
+  "license": "ISC"
+}
