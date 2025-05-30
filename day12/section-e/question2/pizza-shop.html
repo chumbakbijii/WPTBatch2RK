@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Shop Order Form</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .main-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        .pizza-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .form-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .topping-group, .sauce-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .error-message {
+            font-size: 0.875em;
+            margin-top: 5px;
+        }
+        .order-summary {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-container">
+            <div class="pizza-header">
+                <h1><i class="fas fa-pizza-slice"></i> Mario's Pizza Shop</h1>
+                <p class="lead">Create your perfect pizza order!</p>
+            </div>
+            
+            <form id="pizzaForm">
+                <!-- Customer Information -->
+                <div class="form-section">
+                    <h4>Customer Information</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customerName" class="form-label">Customer Name *</label>
+                                <input type="text" class="form-control" id="customerName" name="customerName" required>
+                                <div id="nameError" class="text-danger error-message"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pizza Selection -->
+                <div class="form-section">
+                    <h4>Pizza Sauce Selection</h4>
+                    <div class="sauce-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sauce" id="tomatoSauce" value="Tomato Pizza">
+                            <label class="form-check-label" for="tomatoSauce">
+                                <strong>Tomato Pizza Sauce</strong><br>
+                                <small class="text-muted">Classic tomato base</small>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sauce" id="whiteSauce" value="White Sauce">
+                            <label class="form-check-label" for="whiteSauce">
+                                <strong>White Sauce</strong><br>
+                                <small class="text-muted">Creamy white base</small>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sauce" id="pestoSauce" value="Pesto">
+                            <label class="form-check-label" for="pestoSauce">
+                                <strong>Pesto Sauce</strong><br>
+                                <small class="text-muted">Herb-infused base</small>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="sauceError" class="text-danger error-message"></div>
+                </div>
+                
+                <!-- Toppings Selection -->
+                <div class="form-section">
+                    <h4>Pizza Toppings</h4>
+                    <div class="topping-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="pepperoni" name="toppings" value="Pepperoni">
+                            <label class="form-check-label" for="pepperoni">
+                                <strong>Pepperoni</strong> - ₹50
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="mushrooms" name="toppings" value="Mushrooms">
+                            <label class="form-check-label" for="mushrooms">
+                                <strong>Mushrooms</strong> - ₹30
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="supreme" name="toppings" value="Supreme Pizza">
+                            <label class="form-check-label" for="supreme">
+                                <strong>Supreme Pizza Toppings</strong> - ₹100
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="cheese" name="toppings" value="Extra Cheese">
+                            <label class="form-check-label" for="cheese">
+                                <strong>Extra Cheese</strong> - ₹40
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="olives" name="toppings" value="Olives">
+                            <label class="form-check-label" for="olives">
+                                <strong>Olives</strong> - ₹25
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="chicken" name="toppings" value="Chicken">
+                            <label class="form-check-label" for="chicken">
+                                <strong>Chicken</strong> - ₹80
+                            </label>
+                        </div>
+                    </div>
+                    <div id="toppingsError" class="text-danger error-message"></div>
+                </div>
+                
+                <!-- Delivery Instructions -->
+                <div class="form-section">
+                    <h4>Delivery Information</h4>
+                    <div class="mb-3">
+                        <label for="deliveryInstructions" class="form-label">Delivery Instructions *</label>
+                        <textarea class="form-control" id="deliveryInstructions" name="deliveryInstructions" rows="3" 
+                                  placeholder="Please provide detailed delivery instructions (minimum 5 words)"></textarea>
+                        <div id="instructionsError" class="text-danger error-message"></div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg me-3">Place Order</button>
+                    <button type="button" class="btn btn-success btn-lg" onclick="loadOrders()">View All Orders</button>
+                </div>
+            </form>
+            
+            <div id="message" class="alert mt-3" style="display: none;"></div>
+        </div>
+        
+        <!-- Orders Table -->
+        <div class="container">
+            <div class="table-container">
+                <h3 class="mb-4">Recent Orders</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Phone</th>
+                                <th>Sauce</th>
+                                <th>Toppings</th>
+                                <th>Delivery Instructions</th>
+                                <th>Order Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">No orders yet. Place your first order above!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add event listeners for validation rules
+        document.addEventListener('DOMContentLoaded', function() {
+            // Listen for sauce selection changes
+            const sauceInputs = document.querySelectorAll('input[name="sauce"]');
+            sauceInputs.forEach(input => {
+                input.addEventListener('change', checkTomatoSupremeRule);
+            });
+            
+            // Listen for topping selection changes
+            const toppingInputs = document.querySelectorAll('input[name="toppings"]');
+            toppingInputs.forEach(input => {
+                input.addEventListener('change', checkTomatoSupremeRule);
+            });
+        });
+        
+        function checkTomatoSupremeRule() {
+            const tomatoSauce = document.getElementById('tomatoSauce').checked;
+            const supremeTopping = document.getElementById('supreme');
+            
+            if (tomatoSauce) {
+                supremeTopping.checked = false;
+                supremeTopping.disabled = true;
+                supremeTopping.parentElement.style.opacity = '0.5';
+            } else {
+                supremeTopping.disabled = false;
+                supremeTopping.parentElement.style.opacity = '1';
+            }
+        }
+        
+        document.getElementById('pizzaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                submitOrder();
+            }
+        });
+        
+        function validateForm() {
+            let isValid = true;
+            clearErrors();
+            
+            // Validate customer name (minimum 5 characters)
+            const customerName = document.getElementById('customerName').value.trim();
+            if (customerName.length < 5) {
+                showError('nameError', 'Customer name must be at least 5 characters long');
+                isValid = false;
+            }
+            
+            // Validate sauce selection
+            const selectedSauce = document.querySelector('input[name="sauce"]:checked');
+            if (!selectedSauce) {
+                showError('sauceError', 'Please select a pizza sauce');
+                isValid = false;
+            }
+            
+            // Validate Tomato + Supreme rule
+            const tomatoSauce = document.getElementById('tomatoSauce').checked;
+            const supremeTopping = document.getElementById('supreme').checked;
+            if (tomatoSauce && supremeTopping) {
+                showError('toppingsError', 'Supreme Pizza toppings cannot be selected with Tomato Pizza sauce');
+                isValid = false;
+            }
+            
+            // Validate delivery instructions (minimum 5 words)
+            const instructions = document.getElementById('deliveryInstructions').value.trim();
+            const wordCount = instructions.split(/\s+/).filter(word => word.length > 0).length;
+            if (wordCount < 5) {
+                showError('instructionsError', 'Delivery instructions must have at least 5 words');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(element => {
+                element.textContent = '';
+            });
+        }
+        
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+        
+        function submitOrder() {
+            const formData = {
+                customerName: document.getElementById('customerName').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                sauce: document.querySelector('input[name="sauce"]:checked').value,
+                toppings: Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(cb => cb.value),
+                deliveryInstructions: document.getElementById('deliveryInstructions').value.trim()
+            };
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:3000/pizza-orders', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        showMessage('Pizza order placed successfully! 🍕', 'success');
+                        document.getElementById('pizzaForm').reset();
+                        // Reset the disabled state
+                        document.getElementById('supreme').disabled = false;
+                        document.getElementById('supreme').parentElement.style.opacity = '1';
+                        loadOrders();
+                    } else {
+                        const response = JSON.parse(xhr.responseText);
+                        showMessage(response.error || 'Error placing order', 'danger');
+                    }
+                }
+            };
+            
+            xhr.send(JSON.stringify(formData));
+        }
+        
+        function loadOrders() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:3000/pizza-orders', true);
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const orders = JSON.parse(xhr.responseText);
+                        displayOrders(orders);
+                    } else {
+                        showMessage('Error loading orders', 'danger');
+                    }
+                }
+            };
+            
+            xhr.send();
+        }
+        
+        function displayOrders(orders) {
+            const tableBody = document.getElementById('ordersTableBody');
+            
+            if (orders.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No orders found.</td></tr>';
+                return;
+            }
+            
+            tableBody.innerHTML = '';
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                const orderDate = new Date(order.createdAt).toLocaleDateString();
+                const toppings = order.toppings.length > 0 ? order.toppings.join(', ') : 'No toppings';
+                
+                row.innerHTML = `
+                    <td>${order.customerName}</td>
+                    <td>${order.phone || 'Not provided'}</td>
+                    <td><span class="badge bg-primary">${order.sauce}</span></td>
+                    <td><small>${toppings}</small></td>
+                    <td><small>${order.deliveryInstructions}</small></td>
+                    <td>${orderDate}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = text;
+            messageDiv.className = `alert alert-${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 4000);
+        }
+        
+        // Load orders when page loads
+        window.addEventListener('load', loadOrders);
+    </script>
+</body>
+</html>
