@@ -1,20 +1,22 @@
-// Section C - Question 3: Calculator with Server Processing
-// File: sectionC_q3_server.js
-
+// DAY11/sectionC_q3_calculator_server.js
 const express = require('express');
 const path = require('path');
 const app = express();
 
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static(__dirname));
 
 // Serve calculator page
-app.get('/calculator', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'calculator.html'));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'calculator.html'));
 });
 
-// Handle calculation
+app.get('/calculator', (req, res) => {
+    res.sendFile(path.join(__dirname, 'calculator.html'));
+});
+
+// Handle calculation POST request
 app.post('/calculate', (req, res) => {
     const { num1, num2, operation } = req.body;
 
@@ -23,15 +25,16 @@ app.post('/calculate', (req, res) => {
 
     if (isNaN(number1) || isNaN(number2)) {
         return res.send(`
-            <h2>Error: Invalid numbers</h2>
-            <a href="/calculator">Go back to calculator</a>
+            <h1>Error</h1>
+            <p>Please enter valid numbers!</p>
+            <a href="/calculator">Go Back</a>
         `);
     }
 
     let result;
     let operationSymbol;
 
-    switch (operation) {
+    switch(operation) {
         case 'addition':
             result = number1 + number2;
             operationSymbol = '+';
@@ -47,8 +50,9 @@ app.post('/calculate', (req, res) => {
         case 'division':
             if (number2 === 0) {
                 return res.send(`
-                    <h2>Error: Division by zero!</h2>
-                    <a href="/calculator">Go back to calculator</a>
+                    <h1>Error</h1>
+                    <p>Cannot divide by zero!</p>
+                    <a href="/calculator">Go Back</a>
                 `);
             }
             result = number1 / number2;
@@ -57,8 +61,9 @@ app.post('/calculate', (req, res) => {
         case 'modulus':
             if (number2 === 0) {
                 return res.send(`
-                    <h2>Error: Modulus by zero!</h2>
-                    <a href="/calculator">Go back to calculator</a>
+                    <h1>Error</h1>
+                    <p>Cannot perform modulus by zero!</p>
+                    <a href="/calculator">Go Back</a>
                 `);
             }
             result = number1 % number2;
@@ -66,58 +71,30 @@ app.post('/calculate', (req, res) => {
             break;
         default:
             return res.send(`
-                <h2>Error: Invalid operation</h2>
-                <a href="/calculator">Go back to calculator</a>
+                <h1>Error</h1>
+                <p>Invalid operation selected!</p>
+                <a href="/calculator">Go Back</a>
             `);
     }
 
     res.send(`
+        <!DOCTYPE html>
         <html>
         <head>
             <title>Calculation Result</title>
             <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    text-align: center;
-                    padding: 50px;
-                    background: linear-gradient(135deg, #667eea, #764ba2);
-                    color: white;
-                    min-height: 100vh;
-                }
-                .result-box {
-                    background: rgba(255,255,255,0.1);
-                    padding: 30px;
-                    border-radius: 20px;
-                    display: inline-block;
-                    margin: 20px;
-                    backdrop-filter: blur(10px);
-                }
-                .calculation {
-                    font-size: 2em;
-                    margin: 20px 0;
-                }
-                .result {
-                    font-size: 2.5em;
-                    color: #00ff88;
-                    font-weight: bold;
-                }
-                a {
-                    color: #00ff88;
-                    text-decoration: none;
-                    background: rgba(255,255,255,0.2);
-                    padding: 10px 20px;
-                    border-radius: 10px;
-                    margin-top: 20px;
-                    display: inline-block;
-                }
+                body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; background-color: #f9f9f9; }
+                .result-container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); text-align: center; }
+                .calculation { font-size: 24px; margin: 20px 0; }
+                .result { font-size: 32px; font-weight: bold; color: #28a745; margin: 20px 0; }
+                a { display: inline-block; margin: 10px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
             </style>
         </head>
         <body>
-            <div class="result-box">
-                <h1>🧮 Calculation Result</h1>
+            <div class="result-container">
+                <h1>Calculation Result</h1>
                 <div class="calculation">${number1} ${operationSymbol} ${number2}</div>
                 <div class="result">= ${result}</div>
-                <br><br>
                 <a href="/calculator">Calculate Again</a>
             </div>
         </body>
@@ -125,18 +102,14 @@ app.post('/calculate', (req, res) => {
     `);
 });
 
-// Home route
-app.get('/', (req, res) => {
-    res.redirect('/calculator');
-});
-
-const PORT = 4002;
+const PORT = 3004;
 app.listen(PORT, () => {
     console.log(`Calculator server running on http://localhost:${PORT}`);
-    console.log('Visit: http://localhost:4002/calculator');
+    console.log('Make sure calculator.html is in the same directory!');
+    console.log('Visit: http://localhost:3004/calculator');
 });
 
-// To run:
-// 1. Create calculator.html in public folder
-// 2. npm install express
-// 3. node sectionC_q3_server.js
+// IMPORTANT: Before running this file, make sure to:
+// 1. Install Express: npm install express
+// 2. Make sure calculator.html is in the same directory as this JS file
+// To run: node DAY11/sectionC_q3_calculator_server.js

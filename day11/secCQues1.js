@@ -1,6 +1,4 @@
-// Section C - Question 1: Express Server with Text Responses
-// File: sectionC_q1_server.js
-
+// DAY11/sectionC_q1_express_basic.js
 const express = require('express');
 const app = express();
 
@@ -14,20 +12,23 @@ app.get('/profile', (req, res) => {
     res.send('this is profile');
 });
 
-// Default route for undefined paths
-app.get('*', (req, res) => {
-    res.status(404).send('Page not found');
+// Default route
+app.get('/', (req, res) => {
+    res.send(`
+        <h1>Express Server - Section C Question 1</h1>
+        <p><a href="/data">Go to Data</a></p>
+        <p><a href="/profile">Go to Profile</a></p>
+    `);
 });
 
-const PORT = 4000;
+const PORT = 3002;
 app.listen(PORT, () => {
     console.log(`Express server running on http://localhost:${PORT}`);
-    console.log('Available routes:');
-    console.log('- http://localhost:4000/data');
-    console.log('- http://localhost:4000/profile');
+    console.log('Visit:');
+    console.log('- http://localhost:3002/data');
+    console.log('- http://localhost:3002/profile');
 });
 
-// To run: 
-// 1. npm init -y
-// 2. npm install express
-// 3. node sectionC_q1_server.js
+// IMPORTANT: Before running this file, make sure to install Express:
+// Run this command in your DAY11 folder: npm install express
+// To run: node DAY11/sectionC_q1_express_basic.js
