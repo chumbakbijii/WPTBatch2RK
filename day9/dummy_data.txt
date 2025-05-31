@@ -1,4 +1,6 @@
-This is a sample text file.
-It contains multiple lines.
-Created for demonstration purposes.
-Node.js file operations are powerful!
+Hello World!
+This is a sample file created for demonstration.
+It contains multiple lines of text.
+Line 4: Some numbers - 123, 456, 789
+Line 5: Current date - 5/28/2025, 12:46:56 AM
+Line 6: This is the last line of dummy data.
