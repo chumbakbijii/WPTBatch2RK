@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addition Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .calculator {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            display: none;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Addition Calculator</h1>
+        <form id="additionForm">
+            <div class="form-group">
+                <label for="num1">First Number:</label>
+                <input type="number" id="num1" name="num1" required>
+            </div>
+            <div class="form-group">
+                <label for="num2">Second Number:</label>
+                <input type="number" id="num2" name="num2" required>
+            </div>
+            <button type="submit">Calculate Addition</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('additionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:3000/calculate', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    const resultDiv = document.getElementById('result');
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        resultDiv.innerHTML = `<strong>Result:</strong> ${num1} + ${num2} = ${response.result}`;
+                        resultDiv.className = 'result';
+                        resultDiv.style.display = 'block';
+                    } else {
+                        resultDiv.innerHTML = '<strong>Error:</strong> Unable to calculate. Please try again.';
+                        resultDiv.className = 'result error';
+                        resultDiv.style.display = 'block';
+                    }
+                }
+            };
+            
+            xhr.send(JSON.stringify({
+                operation: 'addition',
+                num1: num1,
+                num2: num2
+            }));
+        });
+    </script>
+</body>
+</html>
